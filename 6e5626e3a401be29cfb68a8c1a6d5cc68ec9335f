@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "477b0460_62f0d6c5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:25:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c680d7_c519ba38",
+      "revId": "6e5626e3a401be29cfb68a8c1a6d5cc68ec9335f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7c680d7_e514b602",
         "filename": "src/main/resources/Documentation/reviewersbyblame.md",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2013-07-15T18:21:11Z",
       "side": 1,
       "message": "I would remove this last part from \", however ...\".",
+      "revId": "6e5626e3a401be29cfb68a8c1a6d5cc68ec9335f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "477b0460_82eddaee",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:25:07Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "a7c680d7_e514b602",
       "revId": "6e5626e3a401be29cfb68a8c1a6d5cc68ec9335f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
