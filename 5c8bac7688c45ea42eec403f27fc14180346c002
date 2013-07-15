@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "a7c680d7_453b0aa0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "477b0460_02ed4a10",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7c680d7_8524e288",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
         "patchSetId": 1
@@ -47,6 +65,24 @@
       "writtenOn": "2013-07-15T14:06:01Z",
       "side": 1,
       "message": "RevWalk must be released in a finally block.",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "477b0460_a21f3e35",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c680d7_8524e288",
       "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -70,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "477b0460_c224428a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c680d7_a51f5e35",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a7c680d7_e529565f",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 1
@@ -87,6 +141,24 @@
     },
     {
       "key": {
+        "uuid": "477b0460_e229465f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c680d7_e529565f",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "477b0460_42cf52ab",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 1
@@ -98,6 +170,24 @@
       "writtenOn": "2013-07-15T14:06:01Z",
       "side": 1,
       "message": "The declaration of the factory should come before the constructor.",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "477b0460_022f0a62",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "477b0460_42cf52ab",
       "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -138,6 +228,24 @@
     },
     {
       "key": {
+        "uuid": "477b0460_423112c1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a7c680d7_c52eda64",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "477b0460_22d24e54",
         "filename": "src/main/resources/Documentation/reviewersbyblame.md",
         "patchSetId": 1
@@ -149,6 +257,24 @@
       "writtenOn": "2013-07-15T14:06:01Z",
       "side": 1,
       "message": "This could be a bit more detailed ;-)",
+      "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "477b0460_0201cac9",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-15T18:10:05Z",
+      "side": 1,
+      "message": "Done :) There is not much to write about it yet, I will push the patch to configure it through project, can we do it within the plugin nowadays?",
+      "parentUuid": "477b0460_22d24e54",
       "revId": "5c8bac7688c45ea42eec403f27fc14180346c002",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
