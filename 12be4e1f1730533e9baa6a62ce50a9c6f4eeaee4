@@ -2,6 +2,159 @@
   "comments": [
     {
       "key": {
+        "uuid": "c7253491_262276b1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "You may avoid loading of the change and all patch sets by relying on the structure of the change refs:\n\n  refs/changes/XX/XXXX/N\n\nwhere N is the patch set number.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_06257ab8",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "Why only for the first patch set? If you consider this policy important then please make it configurable so that we can switch it on for all patch-sets.\n\nThis could also be added in a follow-up change.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_0a2e5b94",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "The commit id is available in the u.getNewObjectId().",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_86396ae0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "The static Logger is usually the first thing we declare immediately after the class declaration line.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_a63e66c3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "don\u0027t initialize. Let the compiler give an error if you use it without assigning a value.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_2a2b1f85",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "Avoid one level of indentation:\n\n  if (commit.getParentCount() !\u003d 1) {\n    return;\n  }",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_2a54ff04",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "Why protecting against own private method? Don\u0027t you trust yourself?",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_4a513314",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "1. For me, passing the reviewers Map here would be more readable than passing the entry set.\n\n2. why the max parameter? Isn\u0027t this.maxReviewers what you need?\nIt looks to me that it is a responsibility of the user of this class to compute the maxReviewers (based on different config parameters) and that this class should simply use whatever is provided in Factory.create?",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_6a4ef776",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2013-07-16T15:12:29Z",
+      "side": 1,
+      "message": "[optional] it may be more readable to create a list of keys (List\u003cAccount\u003e)\nand sort it based on the counts in the reviewers map.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e76238bf_57062c30",
         "filename": "src/main/resources/Documentation/reviewersbyblame.md",
         "patchSetId": 3
