@@ -122,6 +122,24 @@
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_e6485e77",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-07-16T14:38:03Z",
+      "side": 1,
+      "message": "The plugin is already useable without this config option. I prefer to move on in small steps instead of having everything in the initial version. Smaller changes are generally easier to review and it\u0027s easier to get an agreement. From above comments it\u0027s already understandable that there might be different opinions on where and how to store the configuration. This discussion should take place in an own change which is focused on the configuration aspect. This change is about the core functionality of the plugin which is a topic on its own. Having this change merged first also allows other contributors to join and add more functionality.\nJust my 2 cents, Deniz as the author should decide which approach he prefers.",
+      "parentUuid": "c7253491_c643625a",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
