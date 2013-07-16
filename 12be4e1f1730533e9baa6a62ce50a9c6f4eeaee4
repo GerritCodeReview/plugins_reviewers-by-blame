@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c7253491_66354edb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "I changed the logic to use the last patchset instead",
+      "parentUuid": "c7253491_262276b1",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7253491_06257ab8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-07-16T15:12:29Z",
       "side": 1,
       "message": "Why only for the first patch set? If you consider this policy important then please make it configurable so that we can switch it on for all patch-sets.\n\nThis could also be added in a follow-up change.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e76238bf_771c1073",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "The reasoning behind this is the computation burden it brings to gerrit for every patch-set, most of the times, the chunks edited will be from the chunk of the first patch set.\n\nEdwin also doesn\u0027t like this limitation so I agree we should remove it. If performance becomes a problem we can easily add it as an option.",
+      "parentUuid": "c7253491_06257ab8",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "473224d4_aa90ef96",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473224d4_0a2e5b94",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c7253491_86396ae0",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2013-07-16T15:12:29Z",
       "side": 1,
       "message": "The static Logger is usually the first thing we declare immediately after the class declaration line.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_ca952386",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7253491_86396ae0",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "c7253491_86624aec",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c7253491_a63e66c3",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "473224d4_2a2b1f85",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 3
@@ -98,6 +188,24 @@
       "writtenOn": "2013-07-16T15:12:29Z",
       "side": 1,
       "message": "Avoid one level of indentation:\n\n  if (commit.getParentCount() !\u003d 1) {\n    return;\n  }",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_ea9ae7b2",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473224d4_2a2b1f85",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "c7253491_a66746fb",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "No :)\n\nDone.",
+      "parentUuid": "473224d4_2a54ff04",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "473224d4_4a513314",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 3
@@ -132,6 +258,24 @@
       "writtenOn": "2013-07-16T15:12:29Z",
       "side": 1,
       "message": "1. For me, passing the reviewers Map here would be more readable than passing the entry set.\n\n2. why the max parameter? Isn\u0027t this.maxReviewers what you need?\nIt looks to me that it is a responsibility of the user of this class to compute the maxReviewers (based on different config parameters) and that this class should simply use whatever is provided in Factory.create?",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_0aa01be0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "473224d4_4a513314",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "473224d4_4aaa13c0",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "I did this change but it made it look more confusing, maybe I misread what you meant? I can add it in a following patchset.",
+      "parentUuid": "473224d4_6a4ef776",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e76238bf_57062c30",
         "filename": "src/main/resources/Documentation/reviewersbyblame.md",
         "patchSetId": 3
@@ -166,6 +328,24 @@
       "writtenOn": "2013-07-16T02:41:47Z",
       "side": 1,
       "message": "If you rename this file to `about.md` it will be displayed under a section named \"About\" on the plugin\u0027s index page.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_46513214",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "Good idea. Done.",
+      "parentUuid": "e76238bf_57062c30",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
@@ -344,6 +524,24 @@
       "side": 1,
       "message": "Actually i changed my mind ;-)\n\nIt is not usable as is, because there is no way to restrict which project is activated and which not for atomatic reviewers addition. So it can only be used as is, in a trivial (not existing) environment, where the Gerrit site has only one project, so the admin can decide to deploy that plugin or not or not.\n\nWhat must be configurable, is of course more then just max reviewers per project base, if the project is activated for that plugin or not (a lá replication-plugin).\n\nAnd please don\u0027t tell me, that we have a sensible default here (always activated), because we don\u0027t ;-)",
       "parentUuid": "473224d4_ca5c4332",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_26543605",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-16T21:47:22Z",
+      "side": 1,
+      "message": "My plan here is to do it in a few stages;\n\n1 - Hardcoded value for initial commit so we can start testing it out\n\n2 - I have a patch, that I need to rebase, so project.config supports a new key\n\n3 - Allow plugins to contribute to project - this one is tricky and I am not sure who wants to take it?",
+      "parentUuid": "c7253491_463852d4",
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
