@@ -176,6 +176,24 @@
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c7253491_463852d4",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-07-16T14:58:21Z",
+      "side": 1,
+      "message": "Actually i changed my mind ;-)\n\nIt is not usable as is, because there is no way to restrict which project is activated and which not for atomatic reviewers addition. So it can only be used as is, in a trivial (not existing) environment, where the Gerrit site has only one project, so the admin can decide to deploy that plugin or not or not.\n\nWhat must be configurable, is of course more then just max reviewers per project base, if the project is activated for that plugin or not (a lá replication-plugin).\n\nAnd please don\u0027t tell me, that we have a sensible default here (always activated), because we don\u0027t ;-)",
+      "parentUuid": "473224d4_ca5c4332",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
