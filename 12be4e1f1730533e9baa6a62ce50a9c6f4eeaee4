@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e76238bf_57062c30",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-07-16T02:41:47Z",
+      "side": 1,
+      "message": "If you rename this file to `about.md` it will be displayed under a section named \"About\" on the plugin\u0027s index page.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "274e1057_3a544505",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-07-16T02:41:47Z",
+      "side": 1,
+      "message": "Title lines should be removed if the file is renamed as above.",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
