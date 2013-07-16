@@ -33,6 +33,23 @@
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_6a1c3773",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-07-16T11:24:38Z",
+      "side": 1,
+      "message": "introduce $site/etc/reviewersbyblame.config, and set up maxreviewers variable in global section and additionally per project base.\n\nSo you end up with three config options:\n\n* reviewersbyblame.config is missing \u003d\u003e maxreviewers \u003d 3\n* reviewersbyblame.config is presents, maxreviewers set only in global section \u003d\u003e maxreviewers \u003d n from global section\n* reviewersbyblame.config is presents, maxreviewers set per project base \u003d\u003e maxreviewers \u003d k per project base\n\nSee [1],[2] for inspiration, how this problem was solved in buildbot-plugin, check for project.NAME.trigger option.\n\n* [1] https://github.com/davido/gerrit-buildbot-plugin\n* [2] https://github.com/davido/gerrit-buildbot-plugin/blob/master/src/main/resources/Documentation/config-buildbot.md",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
