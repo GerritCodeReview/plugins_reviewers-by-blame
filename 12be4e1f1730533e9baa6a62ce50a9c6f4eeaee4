@@ -158,6 +158,24 @@
       "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "473224d4_ca5c4332",
+        "filename": "src/main/resources/Documentation/reviewersbyblame.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-07-16T14:44:50Z",
+      "side": 1,
+      "message": ":-)",
+      "parentUuid": "473224d4_aa670ffb",
+      "revId": "12be4e1f1730533e9baa6a62ce50a9c6f4eeaee4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
