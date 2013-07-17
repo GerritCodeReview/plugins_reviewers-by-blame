@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b34b2773_645c8a29",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-17T16:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b34b2773_443aaee1",
+      "revId": "6083db193d697b43cfce420d9d1fe122ca4c087d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13923312_9f1b3383",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 4
@@ -30,6 +48,24 @@
       "writtenOn": "2013-07-17T14:39:25Z",
       "side": 1,
       "message": "this code was better formatted in patch-set 3",
+      "revId": "6083db193d697b43cfce420d9d1fe122ca4c087d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13923312_ff259fb9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1010030
+      },
+      "writtenOn": "2013-07-17T16:14:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "13923312_9f1b3383",
       "revId": "6083db193d697b43cfce420d9d1fe122ca4c087d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
