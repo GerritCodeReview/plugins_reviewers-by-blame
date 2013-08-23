@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 
 import java.io.IOException;
 
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
@@ -84,6 +85,11 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       return;
     }
 
+    int maxReviewers = getMaxReviwersByBlame(projectName, git);
+    if (maxReviewers <= 0) {
+      return;
+    }
+
     final ReviewDb reviewDb;
     final RevWalk rw = new RevWalk(git);
 
@@ -101,7 +107,6 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
           final RevCommit commit =
               rw.parseCommit(ObjectId.fromString(u.getNewObjectId()));
-          int maxReviewers = 3; //TODO Move to config
 
           final Runnable task =
               reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
@@ -163,4 +168,16 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     }
   }
 
+  private int getMaxReviwersByBlame(Project.NameKey projectName, Repository git) {
+    PluginConfig cfg = new PluginConfig(projectName);
+    try {
+      cfg.load(git);
+      return cfg.getMaxReviewersByBlame();
+    } catch (IOException x) {
+      log.error(x.getMessage(), x);
+    } catch (ConfigInvalidException x) {
+      log.error(x.getMessage(), x);
+    }
+    return 0;
+  }
 }
