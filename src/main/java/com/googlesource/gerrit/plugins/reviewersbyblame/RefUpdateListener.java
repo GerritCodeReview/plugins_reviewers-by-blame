@@ -98,6 +98,10 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           PatchSet.Id psId = PatchSet.Id.fromRef(u.getRefName());
           PatchSet ps = reviewDb.patchSets().get(psId);
           final Change change = reviewDb.changes().get(psId.getParentKey());
+          if (change == null) {
+            log.warn("No change found for " + u.getRefName());
+            continue;
+          }
 
           final RevCommit commit =
               rw.parseCommit(ObjectId.fromString(u.getNewObjectId()));
