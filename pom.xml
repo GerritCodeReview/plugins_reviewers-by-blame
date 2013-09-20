@@ -39,6 +39,7 @@ limitations under the License.
         <configuration>
           <archive>
             <manifestEntries>
+              <Gerrit-PluginName>reviewers-by-blame</Gerrit-PluginName>
               <Gerrit-Module>com.googlesource.gerrit.plugins.reviewersbyblame.ReviewersByBlameModule</Gerrit-Module>
               <Implementation-Vendor>Gerrit Code Review</Implementation-Vendor>
               <Implementation-URL>http://code.google.com/p/gerrit/</Implementation-URL>
