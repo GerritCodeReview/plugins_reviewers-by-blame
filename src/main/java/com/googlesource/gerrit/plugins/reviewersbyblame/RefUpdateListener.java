@@ -33,8 +33,10 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
+import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -54,6 +56,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   private final IdentifiedUser.GenericFactory identifiedUserFactory;
   private final ThreadLocalRequestContext tl;
   private final SchemaFactory<ReviewDb> schemaFactory;
+  private final PluginConfigFactory cfg;
   private ReviewDb db;
 
   @Inject
@@ -61,18 +64,34 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       final GitRepositoryManager repoManager, final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
-      final SchemaFactory<ReviewDb> schemaFactory) {
+      final SchemaFactory<ReviewDb> schemaFactory,
+      final PluginConfigFactory cfg) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
     this.identifiedUserFactory = identifiedUserFactory;
     this.tl = tl;
     this.schemaFactory = schemaFactory;
+    this.cfg = cfg;
   }
 
   @Override
   public void onGitReferenceUpdated(final Event e) {
     Project.NameKey projectName = new Project.NameKey(e.getProjectName());
+
+    int maxReviewers;
+    try {
+      maxReviewers =
+          cfg.getWithInheritance(projectName, "reviewers-by-blame")
+             .getInt("maxReviewers", 3);
+    } catch (NoSuchProjectException x) {
+      log.error(x.getMessage(), x);
+      return;
+    }
+    if (maxReviewers <= 0) {
+      return;
+    }
+
     Repository git;
     try {
       git = repoManager.openRepository(projectName);
@@ -105,7 +124,6 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
           final RevCommit commit =
               rw.parseCommit(ObjectId.fromString(u.getNewObjectId()));
-          int maxReviewers = 3; //TODO Move to config
 
           final Runnable task =
               reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
