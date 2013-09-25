@@ -34,6 +34,24 @@
       "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6482cb1a_4a53731b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-25T12:16:29Z",
+      "side": 1,
+      "message": "Let me correct my suggestion (i think you brought this idea to use \"gerrit.config\" in discussion on the initial version of this plugin): to use $site_path/etc/gerrit.config. This in fact would require the server restart.\n\nThe right thing to do it is to use centralized per plugin configuration: \n\n $site_path/etc/reviewers-by-blame.config\n\nAnd it is exactly how replication-plugin works. Benefit: only extend it there, reload the plugin, or extend the plugin to re-use recent replication plugin extension from Luca, to \"listen\" on configuration changes and reconfigure the plugin configuration without reloading the plugin.",
+      "parentUuid": "84933f69_2b3559ec",
+      "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
