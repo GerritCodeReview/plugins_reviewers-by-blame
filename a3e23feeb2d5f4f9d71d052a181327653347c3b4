@@ -16,6 +16,24 @@
       "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84933f69_2b3559ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-25T11:26:30Z",
+      "side": 1,
+      "message": "I disagree with this idea because there is no benefit from it and it only complicates things. Let me explain why.\n\nFor me there is a clear seperation between global configuration and project specific configuration.\n\nGlobal configuration should be in gerrit.config.\n\nAnything that should be configured per project should be (only) in project.config.\n\nWe generally follow this pattern in Gerrit core. I\u0027m just picking one example: \"Require Change-Id\" which decides whether a project enforces Change-Ids with every change. It\u0027s defined in project.config and there is no default for this in gerrit.config.\n\nFor project specific configuration it is important that a default for all projects can be specified. This can be done in the All-Projects root project if values are inherited. For an administrator it shouldn\u0027t make a difference in efforts if to set the default value in All-Projects or in gerrit.config. Actually having the default in All-Projects is better because a change doesn\u0027t require a server restart as a change in gerrit.config would do.\n\nI believe having too many levels of defaults and fallbacks just makes it more complicated und confusing. There are already two levels of defaults, in All-Projects and in the coding. I really don\u0027t see why another possible default value in between that is defined in gerrit.config would be of any value.\n\nIt is true, that we do have examples that have this fallback from All-Projects to gerrit.config (e.g. max-object-size-limit), but this is only for historic reasons. It was first globally defined in gerrit.config and only later we realized that we actually need this value per project. Only for backward compatibility we kept the possibility to still set this value in gerrit.config.",
+      "parentUuid": "6482cb1a_4a053324",
+      "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
