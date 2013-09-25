@@ -52,6 +52,24 @@
       "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84933f69_0b86dd6b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-25T12:42:16Z",
+      "side": 1,
+      "message": "I guess you are right that I suggested it back then, but since then I was thinking more about it and I have now a more clear view on the problem.\n\nI would maybe agree if we would already have a\n\n  $site_path/etc/reviewers-by-blame.config\n\nfile, since there is a small benefit of having all parameters in one place.\n\nBut since we don\u0027t have this file I still don\u0027t see any value of introducing it now.\n\nI believe the replication plugin is a bit special since it requires a lot of configuration. The replication plugin needs own sections for different destinations and hence an own config file is justified. It is still bad since the global configuration is now not in one place, but a part of it is in gerrit.config and another part in replication.config. I believe plugins that have a simple configuration should not have an own config file but rather store their values in gerrit.config in a plugin subsection. This means all configuration is in one file. I think it can become a nightmare for an administrator if each plugin has an own configuration file. Of course each plugin author can choose which approach he likes most.",
+      "parentUuid": "6482cb1a_4a53731b",
+      "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
