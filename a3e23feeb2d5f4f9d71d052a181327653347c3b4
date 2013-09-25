@@ -70,6 +70,24 @@
       "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6482cb1a_aa494f66",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-25T14:02:56Z",
+      "side": 1,
+      "message": "\"I believe plugins that have a simple configuration should not have an own config file but rather store their values in gerrit.config in a plugin subsection.\"\n\nAgreed. All we need to support reading plugin sections from $path_site/etc/gerrit.config with your recently introduced PluginConfigFactory, would be a new method, a lá getGerritConfig():\n\n String optionBaz \u003d pluginConfigFactory\n     .getGerritConfig(\"projectFoo\", \"pluginBar\")\n     .getInt(\"baz\", \"qux\");\n\nOr to route the user of pluginConfigFactory to alternative (plugin specific) configuration file:\n\n optionBaz \u003d pluginConfigFactory\n     .getPluginConfig(\n         \"reviewers-by-blame.config\",\n         \"projectFoo\",\n         \"pluginBar\")\n     .getInt(\"baz\", \"qux\");\n\nAnother possible option would be to rely upon \"pluginName\" third parameter in the last example, so that pluginName.config can be constructed. (I guess another question is from which directory to read it, $site_path/data or from $site_path/etc). \n\n\"Of course each plugin author can choose which approach he likes most\":\n\nThe authorship ends with the initial commit. The same here: Denis let it open. You extended it the way you liked it or you think is the most appropriate for your needs, in your environment, for your customers (choose the right option). I see it under other perspective and would like to have the same customization the centralized way.\n\nThe question is how we can combine our different approaches and configure the plugin to be smart enough and behave how we want in our environments: you per project project.config with inheritance from AllProject project, /me from centralized gerrit.config or reviewers-by-blame.config? Some compilation time or deployment time configuration?",
+      "parentUuid": "84933f69_0b86dd6b",
+      "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
