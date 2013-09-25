@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6482cb1a_4a053324",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-09-25T09:37:29Z",
+      "side": 1,
+      "message": "As mentioned in comment to the first version of this plugin, why not to support $site_path/etc/gerrit.config too?\n\nThen the admin has the whole flexibility where to add this section:\n\n   [plugin \"reviewers-by-blame\"]\n    maxReviewers \u003d 2\n\nShe would have three options\n\n* $site_path/etc/gerrit.config\n* All-projects\u0027s project.config\n* Foo\u0027s project.config",
+      "revId": "a3e23feeb2d5f4f9d71d052a181327653347c3b4",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
