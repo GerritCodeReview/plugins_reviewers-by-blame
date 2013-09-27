@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c44377e0_1dd2534c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "I\u0027m OK with this idea, please don\u0027t get me wrong, but I\u0027m still wondering why you actually want this. Please forgive me to ask again :-)\n\nI see how it\u0027s nice to have the configuration setting for all projects in one file, but doesn\u0027t this mean that for each project that wants to change this setting an Gerrit administrator needs to be involved to change this file and to reload the plugin? We have many thousands of projects, as a Gerrit administrator I would go mad if only half of the projects would ask me to configure this setting for them. As an adminstrator I really only want to set a sane default and then leave it to the project owners to set whatever value they want for this setting. It\u0027s really not a critical setting and there is no danger in leaving this decision to the project owners (just let them edit their project.config file).\n\nIf you need this feature, I\u0027m wondering why you need it for this setting but not for other project specific settings like \u0027Require-Change-Id\u0027, \u0027submt type\u0027, \u0027Require-Signed-Off-By\u0027? Why is it more important to control the max-reviewers setting?",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_5cc8dd99",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "I find this interface a bit overkill and think we can avoid it (see my other comments below).",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_3ccf11a1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "I find the name \"explicitlyEnableProjects\" a bit misleading. It doesn\u0027t enable the projects, but it allows to have per project configuration?\n\nIf I understand the meaning of this parameter correctly, why do you actually need this setting if the file is only edited by a Gerrit administrator (either he does set project specific values or he doesn\u0027t)? A protection with a global parameter seems to be unnecessary.",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c44377e0_ddbceb01",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "Why do you need the \u0027enabled\u0027 setting? Isn\u0027t it enough to check if max-reviewers \u003e 0 to find that it is enabled and otherwise it\u0027s disabled?",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c44377e0_3dcf0fa1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "It is bad to execute this twice for every change, we should try to avoid this.",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_7cc59980",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "This should better be a warning.",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_1cd2554c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "This should better be a warning or even an error.",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_bce24117",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/RefUpdateListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "Do we really need the \u0027isEnabledFor(project)\u0027 method?\n\nWould it not be enough to get the value immediately here and abort if it is \u003c\u003d 0 (basically as it was done before your change)?\n\nThis would also make the coding easier. I find the introduction of an interface a bit overkill. Can\u0027t we have a getMaxReviewers(project) method that handles all the cases?",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a45043a5_5cb1bd23",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-09-27T12:34:02Z",
+      "side": 1,
+      "message": "I find this parameter name and the explanantion confusing. It doesn\u0027t enable the project, but it enables the add reviewers by blame functionality for that project.",
+      "revId": "b9a74badc845832257ee3b785f776876805bf65b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
