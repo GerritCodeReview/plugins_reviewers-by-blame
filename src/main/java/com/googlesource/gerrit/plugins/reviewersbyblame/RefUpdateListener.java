@@ -26,6 +26,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
@@ -57,6 +58,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   private final ThreadLocalRequestContext tl;
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final PluginConfigFactory cfg;
+  private final String pluginName;
   private ReviewDb db;
 
   @Inject
@@ -65,7 +67,8 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
       final SchemaFactory<ReviewDb> schemaFactory,
-      final PluginConfigFactory cfg) {
+      final PluginConfigFactory cfg,
+      final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
@@ -73,6 +76,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     this.tl = tl;
     this.schemaFactory = schemaFactory;
     this.cfg = cfg;
+    this.pluginName = pluginName;
   }
 
   @Override
@@ -82,7 +86,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     int maxReviewers;
     try {
       maxReviewers =
-          cfg.getWithInheritance(projectName, "reviewers-by-blame")
+          cfg.getWithInheritance(projectName, pluginName)
              .getInt("maxReviewers", 3);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
