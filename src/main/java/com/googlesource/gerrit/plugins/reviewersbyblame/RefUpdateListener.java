@@ -113,21 +113,18 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     try {
       reviewDb = schemaFactory.open();
       try {
-        for (Update u : e.getUpdates()) {
-          if (!u.getRefName().startsWith("refs/changes/")) {
-            continue;
-          }
+        if (e.getRefName().startsWith("refs/changes/")) {
 
-          PatchSet.Id psId = PatchSet.Id.fromRef(u.getRefName());
+          PatchSet.Id psId = PatchSet.Id.fromRef(e.getRefName());
           PatchSet ps = reviewDb.patchSets().get(psId);
           final Change change = reviewDb.changes().get(psId.getParentKey());
           if (change == null) {
-            log.warn("No change found for " + u.getRefName());
-            continue;
+            log.warn("No change found for " + e.getRefName());
+            return;
           }
 
           final RevCommit commit =
-              rw.parseCommit(ObjectId.fromString(u.getNewObjectId()));
+              rw.parseCommit(ObjectId.fromString(e.getNewObjectId()));
 
           final Runnable task =
               reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
