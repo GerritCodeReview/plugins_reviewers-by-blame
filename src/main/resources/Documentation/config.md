@@ -10,6 +10,7 @@ Other projects can then override the configuration in their own
 
 ```
   [plugin "reviewers-by-blame"]
+    strategy = by_blame
     maxReviewers = 2
 ```
 
@@ -18,3 +19,21 @@ plugin.reviewers-by-blame.maxReviewers
 	this plugin.
 
 	By default 3.
+
+plugin.reviewers-by-blame.strategy
+:	Strategy for adding the reviewers: BY_BLAME or FIXED.
+	Default is BY_BLAME.
+
+plugin.reviewers-by-blame.reviewer
+:	reviewer is for strategy FIXED.
+
+For example with this configuration 3 fixed reviewers are always added
+to all changes:
+
+```
+  [plugin "reviewers-by-blame"]
+    strategy = fixed
+    reviewer = 1000021
+    reviewer = 1000022
+    reviewer = 1000023
+```

@@ -40,7 +40,6 @@ import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountByEmailCache;
 import com.google.gerrit.server.account.AccountCache;
-import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.PostReviewers;
 import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
@@ -53,7 +52,7 @@ import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 
 
-public class ReviewersByBlame implements Runnable {
+public class ReviewersByBlame extends Reviewers implements Runnable {
 
   private static final Logger log = LoggerFactory
       .getLogger(ReviewersByBlame.class);
@@ -67,9 +66,6 @@ public class ReviewersByBlame implements Runnable {
   private final AccountByEmailCache byEmailCache;
   private final AccountCache accountCache;
   private final PatchListCache patchListCache;
-  private final Provider<PostReviewers> reviewersProvider;
-  private final IdentifiedUser.GenericFactory identifiedUserFactory;
-  private final ChangeControl.GenericFactory changeControlFactory;
 
   public interface Factory {
     ReviewersByBlame create(RevCommit commit, Change change, PatchSet ps,
@@ -86,11 +82,9 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final RevCommit commit, @Assisted final Change change,
       @Assisted final PatchSet ps, @Assisted final int maxReviewers,
       @Assisted final Repository repo) {
+    super(changeControlFactory, identifiedUserFactory, reviewersProvider);
     this.byEmailCache = byEmailCache;
     this.accountCache = accountCache;
-    this.changeControlFactory = changeControlFactory;
-    this.reviewersProvider = reviewersProvider;
-    this.identifiedUserFactory = identifiedUserFactory;
     this.patchListCache = patchListCache;
     this.commit = commit;
     this.change = change;
@@ -125,30 +119,6 @@ public class ReviewersByBlame implements Runnable {
     Set<Account.Id> topReviewers = findTopReviewers(reviewers);
     addReviewers(topReviewers, change);
   }
-
-  /**
-   * Append the reviewers to change#{@link Change}
-   *
-   * @param topReviewers Set of reviewers proposed
-   * @param change {@link Change} to add the reviewers to
-   */
-  private void addReviewers(Set<Account.Id> topReviewers, Change change) {
-    try {
-      ChangeControl changeControl =
-          changeControlFactory.controlFor(change,
-              identifiedUserFactory.create(change.getOwner()));
-      ChangeResource changeResource = new ChangeResource(changeControl);
-      PostReviewers post = reviewersProvider.get();
-      for (Account.Id accountId : topReviewers) {
-        PostReviewers.Input input = new PostReviewers.Input();
-        input.reviewer = accountId.toString();
-        post.apply(changeResource, input);
-      }
-    } catch (Exception ex) {
-      log.error("Couldn't add reviewers to the change", ex);
-    }
-  }
-
 
   /**
    * Create a set of reviewers based on data collected from line annotations,

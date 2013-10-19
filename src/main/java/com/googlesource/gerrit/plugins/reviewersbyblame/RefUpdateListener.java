@@ -15,6 +15,9 @@
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
 
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.errors.MissingObjectException;
@@ -26,8 +29,13 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
+import com.google.gerrit.reviewdb.client.Account;
+import com.google.gerrit.reviewdb.client.Account.Id;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
@@ -52,6 +60,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       .getLogger(RefUpdateListener.class);
 
   private final ReviewersByBlame.Factory reviewersByBlameFactory;
+  private final ReviewersFixed.Factory reviewersFixedFactory;
   private final GitRepositoryManager repoManager;
   private final WorkQueue workQueue;
   private final IdentifiedUser.GenericFactory identifiedUserFactory;
@@ -63,6 +72,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
   @Inject
   RefUpdateListener(final ReviewersByBlame.Factory reviewersByBlameFactory,
+      final ReviewersFixed.Factory reviewersFixedFactory,
       final GitRepositoryManager repoManager, final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
@@ -70,6 +80,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
       final PluginConfigFactory cfg,
       final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
+    this.reviewersFixedFactory = reviewersFixedFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
     this.identifiedUserFactory = identifiedUserFactory;
@@ -84,15 +95,25 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     Project.NameKey projectName = new Project.NameKey(e.getProjectName());
 
     int maxReviewers;
+    Set<Account.Id> reviewers;
+    Strategy strategy;
     try {
+      strategy =
+          cfg.getWithInheritance(projectName, pluginName)
+          .getEnum("strategy", Strategy.BY_BLAME);
       maxReviewers =
           cfg.getWithInheritance(projectName, pluginName)
              .getInt("maxReviewers", 3);
+      reviewers = reviewers(cfg.getWithInheritance(projectName, pluginName)
+             .getStringList("reviewer"));
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
     }
-    if (maxReviewers <= 0) {
+    if (strategy == Strategy.BY_BLAME && maxReviewers <= 0) {
+      return;
+    }
+    if (strategy == Strategy.FIXED && reviewers.isEmpty()) {
       return;
     }
 
@@ -131,8 +152,10 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           final RevCommit commit =
               rw.parseCommit(ObjectId.fromString(e.getNewObjectId()));
 
-          final Runnable task =
-              reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
+          final Runnable task = (strategy ==  Strategy.BY_BLAME)
+              ? reviewersByBlameFactory.create(commit, change,
+                  ps, maxReviewers, git)
+              : reviewersFixedFactory.create(change, reviewers);
 
           workQueue.getDefaultQueue().submit(new Runnable() {
             public void run() {
@@ -191,4 +214,15 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     }
   }
 
+  private Set<Id> reviewers(String[] stringList) {
+    if (stringList == null || stringList.length == 0) {
+      return Collections.emptySet();
+    }
+    return Sets.newHashSet(Iterables.transform(Arrays.asList(stringList),
+        new Function<String, Account.Id>() {
+          public Account.Id apply(String id) {
+            return Account.Id.parse(id);
+          };
+        }));
+  }
 }
