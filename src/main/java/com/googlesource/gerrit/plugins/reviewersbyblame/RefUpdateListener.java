@@ -81,6 +81,9 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
 
   @Override
   public void onGitReferenceUpdated(final Event e) {
+    if (!e.getRefName().startsWith("refs/changes/")) {
+      return;
+    }
     Project.NameKey projectName = new Project.NameKey(e.getProjectName());
 
     int maxReviewers;
@@ -113,65 +116,62 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     try {
       reviewDb = schemaFactory.open();
       try {
-        if (e.getRefName().startsWith("refs/changes/")) {
+        PatchSet.Id psId = PatchSet.Id.fromRef(e.getRefName());
+        PatchSet ps = reviewDb.patchSets().get(psId);
+        if (ps == null) {
+          log.warn("No patch set found for " + e.getRefName());
+          return;
+        }
 
-          PatchSet.Id psId = PatchSet.Id.fromRef(e.getRefName());
-          PatchSet ps = reviewDb.patchSets().get(psId);
-          if (ps == null) {
-            log.warn("No patch set found for " + e.getRefName());
-            return;
-          }
+        final Change change = reviewDb.changes().get(psId.getParentKey());
+        if (change == null) {
+          log.warn("No change found for " + e.getRefName());
+          return;
+        }
 
-          final Change change = reviewDb.changes().get(psId.getParentKey());
-          if (change == null) {
-            log.warn("No change found for " + e.getRefName());
-            return;
-          }
+        final RevCommit commit =
+            rw.parseCommit(ObjectId.fromString(e.getNewObjectId()));
 
-          final RevCommit commit =
-              rw.parseCommit(ObjectId.fromString(e.getNewObjectId()));
+        final Runnable task =
+            reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
 
-          final Runnable task =
-              reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
+        workQueue.getDefaultQueue().submit(new Runnable() {
+          public void run() {
+            RequestContext old = tl.setContext(new RequestContext() {
 
-          workQueue.getDefaultQueue().submit(new Runnable() {
-            public void run() {
-              RequestContext old = tl.setContext(new RequestContext() {
+              @Override
+              public CurrentUser getCurrentUser() {
+                return identifiedUserFactory.create(change.getOwner());
+              }
 
-                @Override
-                public CurrentUser getCurrentUser() {
-                  return identifiedUserFactory.create(change.getOwner());
-                }
-
-                @Override
-                public Provider<ReviewDb> getReviewDbProvider() {
-                  return new Provider<ReviewDb>() {
-                    @Override
-                    public ReviewDb get() {
-                      if (db == null) {
-                        try {
-                          db = schemaFactory.open();
-                        } catch (OrmException e) {
-                          throw new ProvisionException("Cannot open ReviewDb", e);
-                        }
+              @Override
+              public Provider<ReviewDb> getReviewDbProvider() {
+                return new Provider<ReviewDb>() {
+                  @Override
+                  public ReviewDb get() {
+                    if (db == null) {
+                      try {
+                        db = schemaFactory.open();
+                      } catch (OrmException e) {
+                        throw new ProvisionException("Cannot open ReviewDb", e);
                       }
-                      return db;
                     }
-                  };
-                }
-              });
-              try {
-                task.run();
-              } finally {
-                tl.setContext(old);
-                if (db != null) {
-                  db.close();
-                  db = null;
-                }
+                    return db;
+                  }
+                };
+              }
+            });
+            try {
+              task.run();
+            } finally {
+              tl.setContext(old);
+              if (db != null) {
+                db.close();
+                db = null;
               }
             }
-          });
-        }
+          }
+        });
       } catch (OrmException x) {
         log.error(x.getMessage(), x);
       } catch (MissingObjectException x) {
