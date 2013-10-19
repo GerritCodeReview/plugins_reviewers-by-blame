@@ -118,8 +118,8 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
           PatchSet.Id psId = PatchSet.Id.fromRef(e.getRefName());
           PatchSet ps = reviewDb.patchSets().get(psId);
           if (ps == null) {
-            log.warn("No patch set found for " + u.getRefName());
-            continue;
+            log.warn("No patch set found for " + e.getRefName());
+            return;
           }
 
           final Change change = reviewDb.changes().get(psId.getParentKey());
