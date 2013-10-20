@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec7c862_f613406a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2013-10-20T13:50:32Z",
+      "side": 1,
+      "message": "Do we have to give account IDs?  It would be more convenient to be able to specify by email address.",
+      "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
