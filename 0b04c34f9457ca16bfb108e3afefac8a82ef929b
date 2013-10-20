@@ -16,6 +16,24 @@
       "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e991882_d216445d",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-20T14:07:27Z",
+      "side": 1,
+      "message": "Yeah, definitely doable. Will change it, if we have a concensus and give that approach a go.",
+      "parentUuid": "dec7c862_f613406a",
+      "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
