@@ -34,6 +34,24 @@
       "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ebedcc7_f313506a",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-10-20T15:34:07Z",
+      "side": 1,
+      "message": "It should also support group names.\n\nActually I would love to be able to specify some kind of change query and to define a set of reviewers that should be added when this query matches (similar to how you can specifiy a change query for watching changes). I\u0027m not sure this can be expressed by a single section. Maybe this is a case where we would really need subsections, e.g.\n\n  [add-reviewer \"branch:master\"]\n    reviewer \u003d MyProject-Developers\n    reviewer \u003d qa@test.com",
+      "parentUuid": "5e991882_d216445d",
+      "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
