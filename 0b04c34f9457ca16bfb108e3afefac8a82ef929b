@@ -52,6 +52,24 @@
       "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e991882_326070db",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-21T08:14:24Z",
+      "side": 1,
+      "message": "Yes, that is valid requirement as another Strategy: QueryStrategy. So let\u0027s summarize:\n\n* No Op strategy (nothing added). We need that one now, because having only maxReviewers is not enough.\n* Git blame strategy\n* Fixed list of reviewers strategy\n* Group of reviewers strategy\n* Random max N reviewers from a fixed list\n* Query reviewers strategy\n\nBut we already using here subsection with plugin name and we cannot nest subsections, right?\n\nWhat is when other plugin would need that:\n\n  [add-reviewer \"branch:master\"]\n\nPrefix key or value with plugin name?\n\nThe approach of having plugin specific configuration files make sense [1].\nCan\u0027t we put per plugin config file on meta/config branch, as a companion to standard project.config?\n\n[1] https://gerrit-review.googlesource.com/#/c/50146",
+      "parentUuid": "7ebedcc7_f313506a",
+      "revId": "0b04c34f9457ca16bfb108e3afefac8a82ef929b",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
