@@ -89,7 +89,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     int maxReviewers;
     try {
       maxReviewers =
-          cfg.getWithInheritance(projectName, pluginName)
+          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
              .getInt("maxReviewers", 3);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
