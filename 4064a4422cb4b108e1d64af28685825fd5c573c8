@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe572ce7_2f2329b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2013-10-31T13:48:58Z",
+      "side": 1,
+      "message": "Why to change from `ref-updated` to `change` event and in the same change to open adding reviewers to magic refs/meta/config branch? Shouldn\u0027t we do one small change in one change?",
+      "revId": "4064a4422cb4b108e1d64af28685825fd5c573c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
