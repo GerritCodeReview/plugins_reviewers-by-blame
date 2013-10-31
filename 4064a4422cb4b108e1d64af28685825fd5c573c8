@@ -16,6 +16,24 @@
       "revId": "4064a4422cb4b108e1d64af28685825fd5c573c8",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e463041_ec920ba4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1003935
+      },
+      "writtenOn": "2013-10-31T13:54:50Z",
+      "side": 1,
+      "message": "Also changes that modify files in \u0027refs/meta/config\u0027 are stored on a \u0027refs/changes/\u0027 ref. The plugin always got invoked for changes for the refs/meta/config branch, only due to the issue 2181 the plugin was unable to load the patch set as it is created only after the ref-updated event is fired. So this is nothing new. See also [1].\n\n[1] https://gerrit-review.googlesource.com/49243",
+      "parentUuid": "fe572ce7_2f2329b6",
+      "revId": "4064a4422cb4b108e1d64af28685825fd5c573c8",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
