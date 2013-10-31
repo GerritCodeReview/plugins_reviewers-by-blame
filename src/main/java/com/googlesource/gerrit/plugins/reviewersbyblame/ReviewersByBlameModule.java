@@ -14,15 +14,15 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
-import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
+import com.google.gerrit.common.ChangeListener;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.config.FactoryModule;
 
 public class ReviewersByBlameModule extends FactoryModule {
   @Override
   protected void configure() {
-    DynamicSet.bind(binder(), GitReferenceUpdatedListener.class).to(
-        RefUpdateListener.class);
+    DynamicSet.bind(binder(), ChangeListener.class).to(
+        ChangeUpdatedListener.class);
     factory(ReviewersByBlame.Factory.class);
   }
 }

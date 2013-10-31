@@ -26,8 +26,8 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gerrit.common.ChangeListener;
 import com.google.gerrit.extensions.annotations.PluginName;
-import com.google.gerrit.extensions.events.GitReferenceUpdatedListener;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
@@ -35,6 +35,8 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.PluginConfigFactory;
+import com.google.gerrit.server.events.ChangeEvent;
+import com.google.gerrit.server.events.PatchSetCreatedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
@@ -46,10 +48,10 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 
-class RefUpdateListener implements GitReferenceUpdatedListener {
+class ChangeUpdatedListener implements ChangeListener {
 
   private static final Logger log = LoggerFactory
-      .getLogger(RefUpdateListener.class);
+      .getLogger(ChangeUpdatedListener.class);
 
   private final ReviewersByBlame.Factory reviewersByBlameFactory;
   private final GitRepositoryManager repoManager;
@@ -62,7 +64,7 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   private ReviewDb db;
 
   @Inject
-  RefUpdateListener(final ReviewersByBlame.Factory reviewersByBlameFactory,
+  ChangeUpdatedListener(final ReviewersByBlame.Factory reviewersByBlameFactory,
       final GitRepositoryManager repoManager, final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
@@ -80,11 +82,12 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
   }
 
   @Override
-  public void onGitReferenceUpdated(final Event e) {
-    if (!e.getRefName().startsWith("refs/changes/")) {
+  public void onChangeEvent(ChangeEvent event) {
+    if (!(event instanceof PatchSetCreatedEvent)) {
       return;
     }
-    Project.NameKey projectName = new Project.NameKey(e.getProjectName());
+    PatchSetCreatedEvent e = (PatchSetCreatedEvent) event;
+    Project.NameKey projectName = new Project.NameKey(e.change.project);
 
     int maxReviewers;
     try {
@@ -116,21 +119,22 @@ class RefUpdateListener implements GitReferenceUpdatedListener {
     try {
       reviewDb = schemaFactory.open();
       try {
-        PatchSet.Id psId = PatchSet.Id.fromRef(e.getRefName());
+        Change.Id changeId = new Change.Id(Integer.parseInt(e.change.number));
+        PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.number));
         PatchSet ps = reviewDb.patchSets().get(psId);
         if (ps == null) {
-          log.warn("No patch set found for " + e.getRefName());
+          log.warn("Patch set " + psId.get() + " not found.");
           return;
         }
 
         final Change change = reviewDb.changes().get(psId.getParentKey());
         if (change == null) {
-          log.warn("No change found for " + e.getRefName());
+          log.warn("Change " + changeId.get() + " not found.");
           return;
         }
 
         final RevCommit commit =
-            rw.parseCommit(ObjectId.fromString(e.getNewObjectId()));
+            rw.parseCommit(ObjectId.fromString(e.patchSet.revision));
 
         final Runnable task =
             reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
