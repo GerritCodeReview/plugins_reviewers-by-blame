@@ -92,7 +92,7 @@ class ChangeUpdatedListener implements ChangeListener {
     int maxReviewers;
     try {
       maxReviewers =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
+          cfg.getWithInheritance(projectName, pluginName)
              .getInt("maxReviewers", 3);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
