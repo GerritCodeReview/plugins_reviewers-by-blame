@@ -22,6 +22,30 @@
       "revId": "34f4d5d7a54e49dce517408e90a4921cfce1bcbf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19198330_55256cbc",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-04-11T13:02:03Z",
+      "side": 1,
+      "message": "This is the same change as made in the reviewers plugin [1].\n\nI\u0027ve used that plugin since the change was made, and reviewers were being added, but I did not check that they were added by the change owner.\n\nI did not test this other than compilation, assuming the other one was correct.  If it\u0027s broken here, it\u0027s also broken there :(\n\n[1] https://gerrit-review.googlesource.com/#/c/53871/2/src/main/java/com/googlesource/gerrit/plugins/reviewers/DefaultReviewers.java",
+      "parentUuid": "199ee3d0_ad29fda1",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 68
+      },
+      "revId": "34f4d5d7a54e49dce517408e90a4921cfce1bcbf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
