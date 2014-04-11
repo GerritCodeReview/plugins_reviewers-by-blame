@@ -33,20 +33,20 @@ import org.slf4j.LoggerFactory;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import com.google.gerrit.extensions.api.changes.AddReviewerInput;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
 import com.google.gerrit.reviewdb.client.PatchSet;
-import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.account.AccountByEmailCache;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.change.ChangeResource;
+import com.google.gerrit.server.change.ChangesCollection;
 import com.google.gerrit.server.change.PostReviewers;
 import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
-import com.google.gerrit.server.project.ChangeControl;
 import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -68,8 +68,7 @@ public class ReviewersByBlame implements Runnable {
   private final AccountCache accountCache;
   private final PatchListCache patchListCache;
   private final Provider<PostReviewers> reviewersProvider;
-  private final IdentifiedUser.GenericFactory identifiedUserFactory;
-  private final ChangeControl.GenericFactory changeControlFactory;
+  private final ChangesCollection changes;
 
   public interface Factory {
     ReviewersByBlame create(RevCommit commit, Change change, PatchSet ps,
@@ -79,18 +78,16 @@ public class ReviewersByBlame implements Runnable {
   @Inject
   public ReviewersByBlame(final AccountByEmailCache byEmailCache,
       final AccountCache accountCache,
-      final ChangeControl.GenericFactory changeControlFactory,
+      final ChangesCollection changes,
       final Provider<PostReviewers> reviewersProvider,
-      final IdentifiedUser.GenericFactory identifiedUserFactory,
       final PatchListCache patchListCache, final ProjectCache projectCache,
       @Assisted final RevCommit commit, @Assisted final Change change,
       @Assisted final PatchSet ps, @Assisted final int maxReviewers,
       @Assisted final Repository repo) {
     this.byEmailCache = byEmailCache;
     this.accountCache = accountCache;
-    this.changeControlFactory = changeControlFactory;
+    this.changes = changes;
     this.reviewersProvider = reviewersProvider;
-    this.identifiedUserFactory = identifiedUserFactory;
     this.patchListCache = patchListCache;
     this.commit = commit;
     this.change = change;
@@ -134,13 +131,10 @@ public class ReviewersByBlame implements Runnable {
    */
   private void addReviewers(Set<Account.Id> topReviewers, Change change) {
     try {
-      ChangeControl changeControl =
-          changeControlFactory.controlFor(change,
-              identifiedUserFactory.create(change.getOwner()));
-      ChangeResource changeResource = new ChangeResource(changeControl);
+      ChangeResource changeResource = changes.parse(change.getId());
       PostReviewers post = reviewersProvider.get();
       for (Account.Id accountId : topReviewers) {
-        PostReviewers.Input input = new PostReviewers.Input();
+        AddReviewerInput input = new AddReviewerInput();
         input.reviewer = accountId.toString();
         post.apply(changeResource, input);
       }
