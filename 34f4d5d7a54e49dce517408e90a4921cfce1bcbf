@@ -70,6 +70,30 @@
       "revId": "34f4d5d7a54e49dce517408e90a4921cfce1bcbf",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5045f04_1cfd15d6",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2014-04-17T07:54:30Z",
+      "side": 1,
+      "message": "Note: I checked it on the reviewers plugin, not this one.  But the code is the same there.",
+      "parentUuid": "c5045f04_3cf8d1e5",
+      "range": {
+        "startLine": 134,
+        "startChar": 6,
+        "endLine": 134,
+        "endChar": 68
+      },
+      "revId": "34f4d5d7a54e49dce517408e90a4921cfce1bcbf",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
