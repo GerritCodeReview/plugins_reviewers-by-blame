@@ -22,7 +22,7 @@ limitations under the License.
   <groupId>com.googlesource.gerrit.plugins.reviewersbyblame</groupId>
   <artifactId>reviewersbyblame</artifactId>
   <packaging>jar</packaging>
-  <version>2.9-SNAPSHOT</version>
+  <version>2.9</version>
   <name>reviewersbyblame</name>
 
   <properties>
@@ -83,12 +83,6 @@ limitations under the License.
     </dependency>
   </dependencies>
 
-  <repositories>
-    <repository>
-      <id>gerrit-snapshot-repository</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </repository>
-  </repositories>
   <description>Find possible reviewers using git blame</description>
   <organization>
       <name>Spotify AB</name>
