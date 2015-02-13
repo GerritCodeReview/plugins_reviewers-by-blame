@@ -14,7 +14,7 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
-import com.google.gerrit.common.ChangeListener;
+import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.config.FactoryModule;
@@ -23,7 +23,7 @@ import com.google.gerrit.server.config.ProjectConfigEntry;
 public class ReviewersByBlameModule extends FactoryModule {
   @Override
   protected void configure() {
-    DynamicSet.bind(binder(), ChangeListener.class).to(
+    DynamicSet.bind(binder(), EventListener.class).to(
         ChangeUpdatedListener.class);
     factory(ReviewersByBlame.Factory.class);
     bind(ProjectConfigEntry.class)
