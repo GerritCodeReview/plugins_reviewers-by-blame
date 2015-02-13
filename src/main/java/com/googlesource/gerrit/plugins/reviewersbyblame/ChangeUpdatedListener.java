@@ -26,7 +26,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gerrit.common.ChangeListener;
+import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
@@ -35,7 +35,7 @@ import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.PluginConfigFactory;
-import com.google.gerrit.server.events.ChangeEvent;
+import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.PatchSetCreatedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
@@ -48,7 +48,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 
-class ChangeUpdatedListener implements ChangeListener {
+class ChangeUpdatedListener implements EventListener {
 
   private static final Logger log = LoggerFactory
       .getLogger(ChangeUpdatedListener.class);
@@ -82,7 +82,7 @@ class ChangeUpdatedListener implements ChangeListener {
   }
 
   @Override
-  public void onChangeEvent(ChangeEvent event) {
+  public void onEvent(Event event) {
     if (!(event instanceof PatchSetCreatedEvent)) {
       return;
     }
@@ -140,6 +140,7 @@ class ChangeUpdatedListener implements ChangeListener {
             reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
 
         workQueue.getDefaultQueue().submit(new Runnable() {
+          @Override
           public void run() {
             RequestContext old = tl.setContext(new RequestContext() {
 

@@ -47,7 +47,6 @@ import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
-import com.google.gerrit.server.project.ProjectCache;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
@@ -80,7 +79,7 @@ public class ReviewersByBlame implements Runnable {
       final AccountCache accountCache,
       final ChangesCollection changes,
       final Provider<PostReviewers> reviewersProvider,
-      final PatchListCache patchListCache, final ProjectCache projectCache,
+      final PatchListCache patchListCache,
       @Assisted final RevCommit commit, @Assisted final Change change,
       @Assisted final PatchSet ps, @Assisted final int maxReviewers,
       @Assisted final Repository repo) {
@@ -158,6 +157,7 @@ public class ReviewersByBlame implements Runnable {
     Set<Account.Id> topReviewers = Sets.newHashSet();
     List<Entry<Account, Integer>> entries =
         Ordering.from(new Comparator<Entry<Account, Integer>>() {
+          @Override
           public int compare(Entry<Account, Integer> first,
               Entry<Account, Integer> second) {
             return first.getValue() - second.getValue();
