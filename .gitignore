@@ -1,3 +1,8 @@
+/.buckversion
+/.buckd
+/.watchmanconfig
+/buck-out
+/bucklets
 /target
 /.classpath
 /.project
