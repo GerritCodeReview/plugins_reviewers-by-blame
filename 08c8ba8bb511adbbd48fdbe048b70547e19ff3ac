@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "506bee69_6a295783",
+        "filename": "lib/gerrit/BUCK",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-04-30T06:50:36Z",
+      "side": 1,
+      "message": "Not used.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 1
+      },
+      "revId": "08c8ba8bb511adbbd48fdbe048b70547e19ff3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707ab234_abff4977",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-04-30T06:50:36Z",
+      "side": 1,
+      "message": "You missed sub-title\n\nSandalone build\n---------------",
+      "revId": "08c8ba8bb511adbbd48fdbe048b70547e19ff3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707ab234_8bfa8d88",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-04-30T06:50:36Z",
+      "side": 1,
+      "message": "Link to .wtachmanconig should be ceated as well.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "08c8ba8bb511adbbd48fdbe048b70547e19ff3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "707ab234_4b058512",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-04-30T06:50:36Z",
+      "side": 1,
+      "message": "In tree build\n-------------",
+      "revId": "08c8ba8bb511adbbd48fdbe048b70547e19ff3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "506bee69_4a2c9394",
+        "filename": "src/main/resources/Documentation/build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2015-04-30T06:50:36Z",
+      "side": 1,
+      "message": "Unneeded new line",
+      "revId": "08c8ba8bb511adbbd48fdbe048b70547e19ff3ac",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
