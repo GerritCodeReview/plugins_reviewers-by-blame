@@ -9,7 +9,7 @@ gerrit_plugin(
     'Implementation-URL: https://gerrit.googlesource.com/plugins/reviewers-by-blame',
     'Gerrit-PluginName: reviewers-by-blame',
     'Gerrit-ApiType: plugin',
-    'Gerrit-ApiVersion: 2.11',
+    'Gerrit-ApiVersion: 2.12-SNAPSHOT',
     'Gerrit-Module: com.googlesource.gerrit.plugins.reviewersbyblame.ReviewersByBlameModule',
   ],
 )
