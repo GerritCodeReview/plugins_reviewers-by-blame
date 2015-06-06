@@ -36,8 +36,6 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.RepositoryNotFoundException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -178,10 +176,6 @@ class ChangeUpdatedListener implements EventListener {
           }
         });
       } catch (OrmException x) {
-        log.error(x.getMessage(), x);
-      } catch (MissingObjectException x) {
-        log.error(x.getMessage(), x);
-      } catch (IncorrectObjectTypeException x) {
         log.error(x.getMessage(), x);
       } catch (IOException x) {
         log.error(x.getMessage(), x);
