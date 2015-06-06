@@ -175,14 +175,10 @@ class ChangeUpdatedListener implements EventListener {
             }
           }
         });
-      } catch (OrmException x) {
-        log.error(x.getMessage(), x);
-      } catch (IOException x) {
-        log.error(x.getMessage(), x);
       } finally {
         reviewDb.close();
       }
-    } catch (OrmException x) {
+    } catch (OrmException|IOException x) {
       log.error(x.getMessage(), x);
     } finally {
       rw.close();
