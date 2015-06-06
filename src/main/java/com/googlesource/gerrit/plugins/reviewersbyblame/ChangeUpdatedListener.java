@@ -111,11 +111,10 @@ class ChangeUpdatedListener implements EventListener {
       return;
     }
 
-    final ReviewDb reviewDb;
     final RevWalk rw = new RevWalk(git);
 
     try {
-      reviewDb = schemaFactory.open();
+      final ReviewDb reviewDb = schemaFactory.open();
       try {
         Change.Id changeId = new Change.Id(Integer.parseInt(e.change.number));
         PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.number));
