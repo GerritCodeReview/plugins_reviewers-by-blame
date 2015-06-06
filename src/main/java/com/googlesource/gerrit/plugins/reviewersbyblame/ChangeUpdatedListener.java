@@ -111,9 +111,7 @@ class ChangeUpdatedListener implements EventListener {
       return;
     }
 
-    final RevWalk rw = new RevWalk(git);
-
-    try {
+    try (final RevWalk rw = new RevWalk(git)) {
       final ReviewDb reviewDb = schemaFactory.open();
       try {
         Change.Id changeId = new Change.Id(Integer.parseInt(e.change.number));
@@ -180,7 +178,6 @@ class ChangeUpdatedListener implements EventListener {
     } catch (OrmException|IOException x) {
       log.error(x.getMessage(), x);
     } finally {
-      rw.close();
       git.close();
     }
   }
