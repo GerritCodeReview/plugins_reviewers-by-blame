@@ -190,7 +190,7 @@ class ChangeUpdatedListener implements ChangeListener {
     } catch (OrmException x) {
       log.error(x.getMessage(), x);
     } finally {
-      rw.release();
+      rw.close();
       git.close();
     }
   }
