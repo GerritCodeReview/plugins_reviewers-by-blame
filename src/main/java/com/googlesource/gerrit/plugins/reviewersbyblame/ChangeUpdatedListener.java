@@ -103,8 +103,8 @@ class ChangeUpdatedListener implements EventListener {
       try (final RevWalk rw = new RevWalk(git)) {
         final ReviewDb reviewDb = schemaFactory.open();
         try {
-          Change.Id changeId = new Change.Id(Integer.parseInt(e.change.get().number));
-          PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.get().number));
+          Change.Id changeId = new Change.Id(Integer.parseInt(e.change.number));
+          PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.number));
           PatchSet ps = reviewDb.patchSets().get(psId);
           if (ps == null) {
             log.warn("Patch set " + psId.get() + " not found.");
@@ -118,7 +118,7 @@ class ChangeUpdatedListener implements EventListener {
           }
 
           final RevCommit commit =
-              rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+              rw.parseCommit(ObjectId.fromString(e.patchSet.revision));
 
           final Runnable task =
               reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
