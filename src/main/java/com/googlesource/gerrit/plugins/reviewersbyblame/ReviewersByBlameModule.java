@@ -31,5 +31,14 @@ public class ReviewersByBlameModule extends FactoryModule {
         .toInstance(new ProjectConfigEntry("Max Reviewers", 3, true,
             "The maximum number of reviewers that should be automatically added"
             + " to a change based on the git blame computation on the changed files."));
+    bind(ProjectConfigEntry.class).annotatedWith(Exports.named("ignoreDrafts"))
+        .toInstance(
+            new ProjectConfigEntry("Ignore Drafts", false,
+                "Ignore draft commits when adding reviewers"));
+    bind(ProjectConfigEntry.class)
+        .annotatedWith(Exports.named("ignoreShortMessageRegEx"))
+        .toInstance(
+            new ProjectConfigEntry("Ignore Regex", "", true,
+                "Ignore commits where the headline matches the given regular expression"));
   }
 }
