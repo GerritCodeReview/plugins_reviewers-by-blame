@@ -87,10 +87,18 @@ class ChangeUpdatedListener implements EventListener {
     Project.NameKey projectName = e.getProjectNameKey();
 
     int maxReviewers;
+    boolean ignoreDrafts;
+    String ignoreSubjectRegEx;
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
              .getInt("maxReviewers", 3);
+      ignoreDrafts =
+          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
+              .getBoolean("ignoreDrafts", false);
+      ignoreSubjectRegEx =
+          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
+              .getString("ignoreSubjectRegEx", "");
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -111,6 +119,10 @@ class ChangeUpdatedListener implements EventListener {
             return;
           }
 
+          if (ignoreDrafts && ps.isDraft()) {
+            return;
+          }
+
           final Change change = reviewDb.changes().get(psId.getParentKey());
           if (change == null) {
             log.warn("Change " + changeId.get() + " not found.");
@@ -119,6 +131,11 @@ class ChangeUpdatedListener implements EventListener {
 
           final RevCommit commit =
               rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+
+          if (!ignoreSubjectRegEx.isEmpty()
+              && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
+            return;
+          }
 
           final Runnable task =
               reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git);
