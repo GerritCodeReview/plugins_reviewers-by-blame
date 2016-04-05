@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ee926865_cb2cd5da",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1025247
+      },
+      "writtenOn": "2016-04-05T08:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e8e1443_2e0e478a",
+      "range": {
+        "startLine": 7,
+        "startChar": 35,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "d3cd06aa0b89402694f5ecfb30c5115722fe0e97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e89e03a_6d45b593",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlameModule.java",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ee926865_eb2991c7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlameModule.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1025247
+      },
+      "writtenOn": "2016-04-05T08:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e89e03a_6d45b593",
+      "range": {
+        "startLine": 42,
+        "startChar": 42,
+        "endLine": 42,
+        "endChar": 50
+      },
+      "revId": "d3cd06aa0b89402694f5ecfb30c5115722fe0e97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4e8e1443_0e098b81",
         "filename": "src/main/resources/Documentation/config.md",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2016-04-05T08:50:42Z",
       "side": 1,
       "message": "subject",
+      "range": {
+        "startLine": 32,
+        "startChar": 27,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "d3cd06aa0b89402694f5ecfb30c5115722fe0e97",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ee926865_0b841d02",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1025247
+      },
+      "writtenOn": "2016-04-05T08:57:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e8e1443_0e098b81",
       "range": {
         "startLine": 32,
         "startChar": 27,
