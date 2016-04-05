@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4e8e1443_6eef6fd0",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-04-05T06:56:05Z",
+      "side": 1,
+      "message": "Should this have a leading `^`?",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 37
+      },
+      "revId": "a07fd81bf170e38e2a5c08f4e3a1c19661ffcd69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e89e03a_cdddc92b",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-04-05T06:56:05Z",
+      "side": 1,
+      "message": "It might be better to say \"Subject\" rather than \"ShortMessage\"?",
+      "range": {
+        "startLine": 31,
+        "startChar": 32,
+        "endLine": 31,
+        "endChar": 44
+      },
+      "revId": "a07fd81bf170e38e2a5c08f4e3a1c19661ffcd69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2e89e03a_add07d14",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-04-05T06:56:05Z",
+      "side": 1,
+      "message": "\"empty or not set\"?",
+      "range": {
+        "startLine": 33,
+        "startChar": 34,
+        "endLine": 33,
+        "endChar": 39
+      },
+      "revId": "a07fd81bf170e38e2a5c08f4e3a1c19661ffcd69",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
