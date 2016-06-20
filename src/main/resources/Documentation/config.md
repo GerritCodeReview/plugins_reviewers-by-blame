@@ -27,6 +27,11 @@ plugin.reviewers-by-blame.ignoreDrafts
 
 	By default false.
 
+plugin.reviewers-by-blame.ignoreFileRegEx
+:	Ignore files where the filename matches the given regular expression when
+	computing the reviewers. If empty or not set, no files are ignored.
+
+	By default not set.
 
 plugin.reviewers-by-blame.ignoreSubjectRegEx
 :	Ignore commits where the subject of the commit messages matches

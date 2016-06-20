@@ -40,5 +40,13 @@ public class ReviewersByBlameModule extends FactoryModule {
         .toInstance(
             new ProjectConfigEntry("Ignore Regex", "", true,
                 "Ignore commits where the subject matches the given regular expression"));
+    bind(ProjectConfigEntry.class)
+        .annotatedWith(Exports.named("ignoreFileRegEx"))
+        .toInstance(
+            new ProjectConfigEntry(
+                "Ignore file Regex",
+                "",
+                true,
+                "Ignore files that match the given regular expression when looking for reviewers"));
   }
 }

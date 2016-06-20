@@ -62,6 +62,7 @@ public class ReviewersByBlame implements Runnable {
   private final PatchSet ps;
   private final Repository repo;
   private final int maxReviewers;
+  private final String ignoreFileRegEx;
 
   private final AccountByEmailCache byEmailCache;
   private final AccountCache accountCache;
@@ -71,7 +72,7 @@ public class ReviewersByBlame implements Runnable {
 
   public interface Factory {
     ReviewersByBlame create(RevCommit commit, Change change, PatchSet ps,
-        int maxReviewers, Repository repo);
+        int maxReviewers, Repository repo, String ignoreFileRegEx);
   }
 
   @Inject
@@ -82,7 +83,8 @@ public class ReviewersByBlame implements Runnable {
       final PatchListCache patchListCache,
       @Assisted final RevCommit commit, @Assisted final Change change,
       @Assisted final PatchSet ps, @Assisted final int maxReviewers,
-      @Assisted final Repository repo) {
+      @Assisted final Repository repo,
+      @Assisted final String ignoreFileRegEx) {
     this.byEmailCache = byEmailCache;
     this.accountCache = accountCache;
     this.changes = changes;
@@ -93,6 +95,7 @@ public class ReviewersByBlame implements Runnable {
     this.ps = ps;
     this.maxReviewers = maxReviewers;
     this.repo = repo;
+    this.ignoreFileRegEx = ignoreFileRegEx;
   }
 
   @Override
@@ -113,6 +116,8 @@ public class ReviewersByBlame implements Runnable {
       BlameResult blameResult;
       if ((entry.getChangeType() == ChangeType.MODIFIED ||
           entry.getChangeType() == ChangeType.DELETED)
+          && (ignoreFileRegEx.isEmpty() ||
+              !entry.getNewName().matches(ignoreFileRegEx))
           && (blameResult = computeBlame(entry, commit.getParent(0))) != null) {
         List<Edit> edits = entry.getEdits();
         reviewers.putAll(getReviewersForPatch(edits, blameResult));
