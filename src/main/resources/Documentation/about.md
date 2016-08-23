@@ -8,4 +8,4 @@ familiar with the code and can mostly review the change.
 
 The maximum number of reviewers that are added as well as exceptions when no
 reviewers should be added by this plugin can be
-[configured per project](config.html).
+[configured per project](config.md).
