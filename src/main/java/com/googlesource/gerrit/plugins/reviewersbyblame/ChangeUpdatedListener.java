@@ -111,79 +111,77 @@ class ChangeUpdatedListener implements EventListener {
       return;
     }
 
-    try (final Repository git = repoManager.openRepository(projectName)) {
-      try (final RevWalk rw = new RevWalk(git)) {
-        try (ReviewDb reviewDb = schemaFactory.open()) {
-          Change.Id changeId = new Change.Id(Integer.parseInt(e.change.get().number));
-          PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.get().number));
-          PatchSet ps = reviewDb.patchSets().get(psId);
-          if (ps == null) {
-            log.warn("Patch set " + psId.get() + " not found.");
-            return;
-          }
+    try (Repository git = repoManager.openRepository(projectName);
+        RevWalk rw = new RevWalk(git);
+        ReviewDb reviewDb = schemaFactory.open()) {
+      Change.Id changeId = new Change.Id(Integer.parseInt(e.change.get().number));
+      PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.get().number));
+      PatchSet ps = reviewDb.patchSets().get(psId);
+      if (ps == null) {
+        log.warn("Patch set " + psId.get() + " not found.");
+        return;
+      }
 
-          if (ignoreDrafts && ps.isDraft()) {
-            return;
-          }
+      if (ignoreDrafts && ps.isDraft()) {
+        return;
+      }
 
-          final Change change = reviewDb.changes().get(psId.getParentKey());
-          if (change == null) {
-            log.warn("Change " + changeId.get() + " not found.");
-            return;
-          }
+      final Change change = reviewDb.changes().get(psId.getParentKey());
+      if (change == null) {
+        log.warn("Change " + changeId.get() + " not found.");
+        return;
+      }
 
-          final RevCommit commit =
-              rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+      final RevCommit commit =
+          rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
-          if (!ignoreSubjectRegEx.isEmpty()
-              && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
-            return;
-          }
+      if (!ignoreSubjectRegEx.isEmpty()
+          && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
+        return;
+      }
 
-          final Runnable task =
-              reviewersByBlameFactory.create(commit, change, ps, maxReviewers,
-                  git, ignoreFileRegEx);
+      final Runnable task =
+          reviewersByBlameFactory.create(commit, change, ps, maxReviewers,
+              git, ignoreFileRegEx);
 
-          workQueue.getDefaultQueue().submit(new Runnable() {
+      workQueue.getDefaultQueue().submit(new Runnable() {
+        @Override
+        public void run() {
+          RequestContext old = tl.setContext(new RequestContext() {
+
             @Override
-            public void run() {
-              RequestContext old = tl.setContext(new RequestContext() {
+            public CurrentUser getUser() {
+              return identifiedUserFactory.create(change.getOwner());
+            }
 
+            @Override
+            public Provider<ReviewDb> getReviewDbProvider() {
+              return new Provider<ReviewDb>() {
                 @Override
-                public CurrentUser getUser() {
-                  return identifiedUserFactory.create(change.getOwner());
-                }
-
-                @Override
-                public Provider<ReviewDb> getReviewDbProvider() {
-                  return new Provider<ReviewDb>() {
-                    @Override
-                    public ReviewDb get() {
-                      if (db == null) {
-                        try {
-                          db = schemaFactory.open();
-                        } catch (OrmException e) {
-                          throw new ProvisionException("Cannot open ReviewDb", e);
-                        }
-                      }
-                      return db;
+                public ReviewDb get() {
+                  if (db == null) {
+                    try {
+                      db = schemaFactory.open();
+                    } catch (OrmException e) {
+                      throw new ProvisionException("Cannot open ReviewDb", e);
                     }
-                  };
+                  }
+                  return db;
                 }
-              });
-              try {
-                task.run();
-              } finally {
-                tl.setContext(old);
-                if (db != null) {
-                  db.close();
-                  db = null;
-                }
-              }
+              };
             }
           });
+          try {
+            task.run();
+          } finally {
+            tl.setContext(old);
+            if (db != null) {
+              db.close();
+              db = null;
+            }
+          }
         }
-      }
+      });
     } catch (OrmException|IOException x) {
       log.error(x.getMessage(), x);
     }
