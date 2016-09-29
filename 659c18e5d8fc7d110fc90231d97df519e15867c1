@@ -16,6 +16,24 @@
       "revId": "659c18e5d8fc7d110fc90231d97df519e15867c1",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4588d3a4_3fd98718",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-09-29T04:40:41Z",
+      "side": 1,
+      "message": "There shouldn\u0027t be any difference in the interfaces.  I only did it like this because I could copy the sha1 from one of the previous changes.",
+      "parentUuid": "8582cb80_0160eacd",
+      "revId": "659c18e5d8fc7d110fc90231d97df519e15867c1",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
