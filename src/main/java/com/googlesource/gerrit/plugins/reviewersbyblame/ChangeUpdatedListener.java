@@ -113,8 +113,7 @@ class ChangeUpdatedListener implements EventListener {
 
     try (final Repository git = repoManager.openRepository(projectName)) {
       try (final RevWalk rw = new RevWalk(git)) {
-        final ReviewDb reviewDb = schemaFactory.open();
-        try {
+        try (ReviewDb reviewDb = schemaFactory.open()) {
           Change.Id changeId = new Change.Id(Integer.parseInt(e.change.get().number));
           PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.get().number));
           PatchSet ps = reviewDb.patchSets().get(psId);
@@ -183,8 +182,6 @@ class ChangeUpdatedListener implements EventListener {
               }
             }
           });
-        } finally {
-          reviewDb.close();
         }
       }
     } catch (OrmException|IOException x) {
