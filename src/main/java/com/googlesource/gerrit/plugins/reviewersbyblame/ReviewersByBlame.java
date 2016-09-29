@@ -208,7 +208,6 @@ public class ReviewersByBlame implements Runnable {
    * that edited this specific part of the code.
    *
    * @param entry {@link PatchListEntry}
-   * @param commit Parent {@link RevCommit}
    * @return Result of blame computation, null if the computation fails
    */
   private BlameResult computeBlame(final PatchListEntry entry,
