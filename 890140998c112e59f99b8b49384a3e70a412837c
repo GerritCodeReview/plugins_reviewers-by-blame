@@ -22,6 +22,30 @@
       "revId": "890140998c112e59f99b8b49384a3e70a412837c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a2d345ea_f2b068d9",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2016-09-30T12:48:16Z",
+      "side": 1,
+      "message": "Pure blindness on my part.  There was a warning about the @param tag being for a non-existing parameter, but I overlooked that it was actually misnamed rather than for a removed parameter.",
+      "parentUuid": "a25a6566_5acfd553",
+      "range": {
+        "startLine": 214,
+        "startChar": 6,
+        "endLine": 214,
+        "endChar": 28
+      },
+      "revId": "890140998c112e59f99b8b49384a3e70a412837c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
