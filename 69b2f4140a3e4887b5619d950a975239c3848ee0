@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "928d725c_fa8f0235",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "Jan 31, 2017 2:20:45 PM",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "e3789f17_61661cf4",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 1
+      },
+      "revId": "69b2f4140a3e4887b5619d950a975239c3848ee0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "524125e6_85af4766",
         "filename": "BUILD",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "Jan 31, 2017 2:11:14 PM",
       "side": 1,
       "message": "I see, it was already wrong in Buck, but we want improve stuff, right?\n\n  resources \u003d glob([\"src/main/resources/**/*\"]),",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 40
+      },
+      "revId": "69b2f4140a3e4887b5619d950a975239c3848ee0",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bfe97864_94d1e340",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "Jan 31, 2017 2:20:45 PM",
+      "side": 1,
+      "message": "Yep, thanks, done.",
+      "parentUuid": "524125e6_85af4766",
       "range": {
         "startLine": 9,
         "startChar": 4,
