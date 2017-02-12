@@ -114,8 +114,8 @@ class ChangeUpdatedListener implements EventListener {
     try (Repository git = repoManager.openRepository(projectName);
         RevWalk rw = new RevWalk(git);
         ReviewDb reviewDb = schemaFactory.open()) {
-      Change.Id changeId = new Change.Id(Integer.parseInt(e.change.get().number));
-      PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(e.patchSet.get().number));
+      Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
+      PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
       PatchSet ps = reviewDb.patchSets().get(psId);
       if (ps == null) {
         log.warn("Patch set " + psId.get() + " not found.");
