@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76d67018_597f95a1",
+        "filename": "BUILD",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2017-02-13T01:43:22Z",
+      "side": 0,
+      "message": "Why is this removed?\n\nIf it is not needed, it should be removed as a separate change.",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 33
+      },
+      "revId": "8e84210f8b7ff6dfc37f839924d38ab098f05049",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    }
+  ]
+}
