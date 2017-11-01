@@ -22,8 +22,8 @@ import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
 import com.google.gerrit.reviewdb.client.PatchSet;
-import com.google.gerrit.server.account.AccountByEmailCache;
 import com.google.gerrit.server.account.AccountCache;
+import com.google.gerrit.server.account.Emails;
 import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.ChangesCollection;
 import com.google.gerrit.server.change.PostReviewers;
@@ -31,6 +31,7 @@ import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
+import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
@@ -64,7 +65,7 @@ public class ReviewersByBlame implements Runnable {
   private final int maxReviewers;
   private final String ignoreFileRegEx;
 
-  private final AccountByEmailCache byEmailCache;
+  private final Emails emails;
   private final AccountCache accountCache;
   private final PatchListCache patchListCache;
   private final Provider<PostReviewers> reviewersProvider;
@@ -76,7 +77,7 @@ public class ReviewersByBlame implements Runnable {
   }
 
   @Inject
-  public ReviewersByBlame(final AccountByEmailCache byEmailCache,
+  public ReviewersByBlame(final Emails emails,
       final AccountCache accountCache,
       final ChangesCollection changes,
       final Provider<PostReviewers> reviewersProvider,
@@ -85,7 +86,7 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final PatchSet ps, @Assisted final int maxReviewers,
       @Assisted final Repository repo,
       @Assisted final String ignoreFileRegEx) {
-    this.byEmailCache = byEmailCache;
+    this.emails = emails;
     this.accountCache = accountCache;
     this.changes = changes;
     this.reviewersProvider = reviewersProvider;
@@ -188,14 +189,18 @@ public class ReviewersByBlame implements Runnable {
     for (Edit edit : edits) {
       for (int i = edit.getBeginA(); i < edit.getEndA(); i++) {
         RevCommit commit = blameResult.getSourceCommit(i);
-        Set<Account.Id> ids =
-            byEmailCache.get(commit.getAuthorIdent().getEmailAddress());
-        for (Account.Id id : ids) {
-          Account account = accountCache.get(id).getAccount();
-          if (account.isActive() && !change.getOwner().equals(account.getId())) {
-            Integer count = reviewers.get(account);
-            reviewers.put(account, count == null ? 1 : count.intValue() + 1);
+        try {
+          Set<Account.Id> ids =
+              emails.getAccountFor(commit.getAuthorIdent().getEmailAddress());
+          for (Account.Id id : ids) {
+            Account account = accountCache.get(id).getAccount();
+            if (account.isActive() && !change.getOwner().equals(account.getId())) {
+              Integer count = reviewers.get(account);
+              reviewers.put(account, count == null ? 1 : count.intValue() + 1);
+            }
           }
+        } catch (IOException | OrmException e) {
+          throw new RuntimeException("Unable to get account with email: " + commit.getAuthorIdent().getEmailAddress(), e);
         }
       }
     }
