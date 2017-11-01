@@ -86,16 +86,12 @@ class ChangeUpdatedListener implements EventListener {
     Project.NameKey projectName = e.getProjectNameKey();
 
     int maxReviewers;
-    boolean ignoreDrafts;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getInt("maxReviewers", 3);
-      ignoreDrafts =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getBoolean("ignoreDrafts", false);
       ignoreSubjectRegEx =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getString("ignoreSubjectRegEx", "");
@@ -119,10 +115,6 @@ class ChangeUpdatedListener implements EventListener {
       PatchSet ps = reviewDb.patchSets().get(psId);
       if (ps == null) {
         log.warn("Patch set " + psId.get() + " not found.");
-        return;
-      }
-
-      if (ignoreDrafts && ps.isDraft()) {
         return;
       }
 
