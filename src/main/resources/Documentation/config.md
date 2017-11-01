@@ -11,7 +11,6 @@ Other projects can then override the configuration in their own
 ```
   [plugin "reviewers-by-blame"]
     maxReviewers = 2
-    ignoreDrafts = true
     ignoreSubjectRegEx = WIP(.*)
 ```
 
@@ -20,12 +19,6 @@ plugin.reviewers-by-blame.maxReviewers
 	this plugin.
 
 	By default 3.
-
-
-plugin.reviewers-by-blame.ignoreDrafts
-:	Ignore draft commits when adding reviewers.
-
-	By default false.
 
 plugin.reviewers-by-blame.ignoreFileRegEx
 :	Ignore files where the filename matches the given regular expression when
