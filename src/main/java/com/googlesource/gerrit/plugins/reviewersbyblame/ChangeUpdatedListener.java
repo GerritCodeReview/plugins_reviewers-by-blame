@@ -35,7 +35,7 @@ import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
-
+import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -43,12 +43,9 @@ import org.eclipse.jgit.revwalk.RevWalk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-
 class ChangeUpdatedListener implements EventListener {
 
-  private static final Logger log = LoggerFactory
-      .getLogger(ChangeUpdatedListener.class);
+  private static final Logger log = LoggerFactory.getLogger(ChangeUpdatedListener.class);
 
   private final ReviewersByBlame.Factory reviewersByBlameFactory;
   private final GitRepositoryManager repoManager;
@@ -61,8 +58,10 @@ class ChangeUpdatedListener implements EventListener {
   private ReviewDb db;
 
   @Inject
-  ChangeUpdatedListener(final ReviewersByBlame.Factory reviewersByBlameFactory,
-      final GitRepositoryManager repoManager, final WorkQueue workQueue,
+  ChangeUpdatedListener(
+      final ReviewersByBlame.Factory reviewersByBlameFactory,
+      final GitRepositoryManager repoManager,
+      final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
       final SchemaFactory<ReviewDb> schemaFactory,
@@ -93,7 +92,7 @@ class ChangeUpdatedListener implements EventListener {
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-             .getInt("maxReviewers", 3);
+              .getInt("maxReviewers", 3);
       ignoreDrafts =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getBoolean("ignoreDrafts", false);
@@ -115,7 +114,8 @@ class ChangeUpdatedListener implements EventListener {
         RevWalk rw = new RevWalk(git);
         ReviewDb reviewDb = schemaFactory.open()) {
       Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
-      PatchSet.Id psId = new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
+      PatchSet.Id psId =
+          new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
       PatchSet ps = reviewDb.patchSets().get(psId);
       if (ps == null) {
         log.warn("Patch set " + psId.get() + " not found.");
@@ -132,59 +132,60 @@ class ChangeUpdatedListener implements EventListener {
         return;
       }
 
-      final RevCommit commit =
-          rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+      final RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
-      if (!ignoreSubjectRegEx.isEmpty()
-          && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
+      if (!ignoreSubjectRegEx.isEmpty() && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
         return;
       }
 
       final Runnable task =
-          reviewersByBlameFactory.create(commit, change, ps, maxReviewers,
-              git, ignoreFileRegEx);
+          reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
 
-      workQueue.getDefaultQueue().submit(new Runnable() {
-        @Override
-        public void run() {
-          RequestContext old = tl.setContext(new RequestContext() {
-
-            @Override
-            public CurrentUser getUser() {
-              return identifiedUserFactory.create(change.getOwner());
-            }
-
-            @Override
-            public Provider<ReviewDb> getReviewDbProvider() {
-              return new Provider<ReviewDb>() {
+      workQueue
+          .getDefaultQueue()
+          .submit(
+              new Runnable() {
                 @Override
-                public ReviewDb get() {
-                  if (db == null) {
-                    try {
-                      db = schemaFactory.open();
-                    } catch (OrmException e) {
-                      throw new ProvisionException("Cannot open ReviewDb", e);
+                public void run() {
+                  RequestContext old =
+                      tl.setContext(
+                          new RequestContext() {
+
+                            @Override
+                            public CurrentUser getUser() {
+                              return identifiedUserFactory.create(change.getOwner());
+                            }
+
+                            @Override
+                            public Provider<ReviewDb> getReviewDbProvider() {
+                              return new Provider<ReviewDb>() {
+                                @Override
+                                public ReviewDb get() {
+                                  if (db == null) {
+                                    try {
+                                      db = schemaFactory.open();
+                                    } catch (OrmException e) {
+                                      throw new ProvisionException("Cannot open ReviewDb", e);
+                                    }
+                                  }
+                                  return db;
+                                }
+                              };
+                            }
+                          });
+                  try {
+                    task.run();
+                  } finally {
+                    tl.setContext(old);
+                    if (db != null) {
+                      db.close();
+                      db = null;
                     }
                   }
-                  return db;
                 }
-              };
-            }
-          });
-          try {
-            task.run();
-          } finally {
-            tl.setContext(old);
-            if (db != null) {
-              db.close();
-              db = null;
-            }
-          }
-        }
-      });
-    } catch (OrmException|IOException x) {
+              });
+    } catch (OrmException | IOException x) {
       log.error(x.getMessage(), x);
     }
   }
-
 }

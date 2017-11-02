@@ -23,22 +23,29 @@ import com.google.gerrit.server.config.ProjectConfigEntry;
 public class ReviewersByBlameModule extends FactoryModule {
   @Override
   protected void configure() {
-    DynamicSet.bind(binder(), EventListener.class).to(
-        ChangeUpdatedListener.class);
+    DynamicSet.bind(binder(), EventListener.class).to(ChangeUpdatedListener.class);
     factory(ReviewersByBlame.Factory.class);
     bind(ProjectConfigEntry.class)
         .annotatedWith(Exports.named("maxReviewers"))
-        .toInstance(new ProjectConfigEntry("Max Reviewers", 3, true,
-            "The maximum number of reviewers that should be automatically added"
-            + " to a change based on the git blame computation on the changed files."));
-    bind(ProjectConfigEntry.class).annotatedWith(Exports.named("ignoreDrafts"))
         .toInstance(
-            new ProjectConfigEntry("Ignore Drafts", false,
-                "Ignore draft commits when adding reviewers"));
+            new ProjectConfigEntry(
+                "Max Reviewers",
+                3,
+                true,
+                "The maximum number of reviewers that should be automatically added"
+                    + " to a change based on the git blame computation on the changed files."));
+    bind(ProjectConfigEntry.class)
+        .annotatedWith(Exports.named("ignoreDrafts"))
+        .toInstance(
+            new ProjectConfigEntry(
+                "Ignore Drafts", false, "Ignore draft commits when adding reviewers"));
     bind(ProjectConfigEntry.class)
         .annotatedWith(Exports.named("ignoreSubjectRegEx"))
         .toInstance(
-            new ProjectConfigEntry("Ignore Regex", "", true,
+            new ProjectConfigEntry(
+                "Ignore Regex",
+                "",
+                true,
                 "Ignore commits where the subject matches the given regular expression"));
     bind(ProjectConfigEntry.class)
         .annotatedWith(Exports.named("ignoreFileRegEx"))
