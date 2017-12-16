@@ -14,6 +14,8 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
@@ -137,6 +139,13 @@ public class ReviewersByBlame implements Runnable {
    * @param change {@link Change} to add the reviewers to
    */
   private void addReviewers(Set<Account.Id> topReviewers, Change change) {
+    if (checkNotNull(topReviewers).isEmpty()) {
+      if (log.isDebugEnabled()) {
+        log.debug("Cannot add reviewers: only patch entries by owner involved.");
+      }
+      return;
+    }
+
     try {
       ChangeResource changeResource = changes.parse(change.getId());
       PostReviewers post = reviewersProvider.get();
