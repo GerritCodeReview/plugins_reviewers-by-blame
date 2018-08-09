@@ -16,6 +16,8 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 
 import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.index.query.Predicate;
+import com.google.gerrit.reviewdb.client.Branch;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
@@ -28,6 +30,11 @@ import com.google.gerrit.server.events.PatchSetCreatedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
+import com.google.gerrit.server.query.change.ChangeData;
+import com.google.gerrit.server.query.change.ChangeIdPredicate;
+import com.google.gerrit.server.query.change.InternalChangeQuery;
+import com.google.gerrit.server.query.change.ProjectPredicate;
+import com.google.gerrit.server.query.change.RefPredicate;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -55,6 +62,7 @@ class ChangeUpdatedListener implements EventListener {
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final PluginConfigFactory cfg;
   private final String pluginName;
+  private final Provider<InternalChangeQuery> queryProvider;
   private ReviewDb db;
 
   @Inject
@@ -66,6 +74,7 @@ class ChangeUpdatedListener implements EventListener {
       final ThreadLocalRequestContext tl,
       final SchemaFactory<ReviewDb> schemaFactory,
       final PluginConfigFactory cfg,
+      final Provider<InternalChangeQuery> queryProvider,
       final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
@@ -74,6 +83,7 @@ class ChangeUpdatedListener implements EventListener {
     this.tl = tl;
     this.schemaFactory = schemaFactory;
     this.cfg = cfg;
+    this.queryProvider = queryProvider;
     this.pluginName = pluginName;
   }
 
@@ -107,20 +117,25 @@ class ChangeUpdatedListener implements EventListener {
     }
 
     try (Repository git = repoManager.openRepository(projectName);
-        RevWalk rw = new RevWalk(git);
-        ReviewDb reviewDb = schemaFactory.open()) {
-      Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
-      PatchSet.Id psId =
-          new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
-      PatchSet ps = reviewDb.patchSets().get(psId);
-      if (ps == null) {
-        log.warn("Patch set " + psId.get() + " not found.");
+        RevWalk rw = new RevWalk(git)) {
+      final ChangeData cd = getChangeData(e.getChangeKey(), projectName, e.getRefName());
+      if (cd == null) {
+        log.warn(
+            "Unique change with key: '"
+                + e.getChangeKey().toString()
+                + "' on project key: '"
+                + projectName.toString()
+                + "' for ref: '"
+                + e.getRefName()
+                + "' not found.");
         return;
       }
-
-      final Change change = reviewDb.changes().get(psId.getParentKey());
-      if (change == null) {
-        log.warn("Change " + changeId.get() + " not found.");
+      final Change change = cd.change();
+      Change.Id changeId = new Change.Id(e.change.get().number);
+      PatchSet.Id psId = new PatchSet.Id(changeId, e.patchSet.get().number);
+      PatchSet ps = cd.patchSet(psId);
+      if (ps == null) {
+        log.warn("Patch set " + psId.get() + " not found in change " + changeId.get() + ".");
         return;
       }
 
@@ -179,5 +194,27 @@ class ChangeUpdatedListener implements EventListener {
     } catch (OrmException | IOException x) {
       log.error(x.getMessage(), x);
     }
+  }
+
+  private ChangeData getChangeData(Change.Key ck, Project.NameKey pnk, String ref)
+      throws OrmException {
+    InternalChangeQuery icq = queryProvider.get();
+    Predicate<ChangeData> terms =
+        Predicate.and(
+            new ChangeIdPredicate(ck.get()),
+            new ProjectPredicate(pnk.get()),
+            new RefPredicate(new Branch.NameKey(pnk, ref).get()));
+    java.util.List<ChangeData> changes = icq.query(terms);
+    if (changes.size() != 1) {
+      // this should never happen
+      log.warn(
+          "Querying for the change returned "
+              + Integer.toString(changes.size())
+              + " results, (expected exactly 1).");
+      log.warn("Query terms were: " + terms.toString());
+      log.warn("Output was: " + changes.toString());
+      return null;
+    }
+    return changes.get(0);
   }
 }
