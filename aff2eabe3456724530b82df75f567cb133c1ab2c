@@ -16,6 +16,24 @@
       "revId": "aff2eabe3456724530b82df75f567cb133c1ab2c",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee08c913_2c56113c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1019767
+      },
+      "writtenOn": "2018-08-09T21:49:26Z",
+      "side": 1,
+      "message": "Thanks for the feedback, will switch it around tomorrow.\n\nOut of curiosity, can you elaborate on what you mean by \"more correct\"?\n\nIs there an instance where the existing query might return more than one result? We have code in CI scripts that tend to presume that given change id (I....) with a given target branch should only exist (at most) once for a given project/repository. Is this not correct?",
+      "parentUuid": "4eba6044_e875d654",
+      "revId": "aff2eabe3456724530b82df75f567cb133c1ab2c",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
