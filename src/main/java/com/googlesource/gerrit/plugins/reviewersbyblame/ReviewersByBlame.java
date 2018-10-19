@@ -23,14 +23,15 @@ import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.server.account.AccountCache;
+import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
 import com.google.gerrit.server.change.ChangeResource;
-import com.google.gerrit.server.change.ChangesCollection;
-import com.google.gerrit.server.change.PostReviewers;
 import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
+import com.google.gerrit.server.restapi.change.ChangesCollection;
+import com.google.gerrit.server.restapi.change.PostReviewers;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -40,6 +41,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import org.eclipse.jgit.api.BlameCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -193,10 +195,10 @@ public class ReviewersByBlame implements Runnable {
         try {
           Set<Account.Id> ids = emails.getAccountFor(commit.getAuthorIdent().getEmailAddress());
           for (Account.Id id : ids) {
-            Account account = accountCache.get(id).getAccount();
-            if (account.isActive() && !change.getOwner().equals(account.getId())) {
-              Integer count = reviewers.get(account);
-              reviewers.put(account, count == null ? 1 : count.intValue() + 1);
+            Optional<AccountState> account = accountCache.get(id);
+            if (account.get().getAccount().isActive() && !change.getOwner().equals(account.get().getAccount().getId())) {
+              Integer count = reviewers.get(account.get().getAccount());
+              reviewers.put(account.get().getAccount(), count == null ? 1 : count.intValue() + 1);
             }
           }
         } catch (IOException | OrmException e) {
