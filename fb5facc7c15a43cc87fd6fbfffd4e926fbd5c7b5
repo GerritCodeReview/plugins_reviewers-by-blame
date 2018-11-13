@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "78f6f9f5_794ea47f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-11-13T22:42:51Z",
+      "side": 1,
+      "message": "Nit: ReviewDb",
+      "range": {
+        "startLine": 7,
+        "startChar": 47,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "fb5facc7c15a43cc87fd6fbfffd4e926fbd5c7b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "58d58147_d28ca89a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2018-11-13T22:42:51Z",
+      "side": 1,
+      "message": "Same here.",
+      "range": {
+        "startLine": 9,
+        "startChar": 39,
+        "endLine": 9,
+        "endChar": 47
+      },
+      "revId": "fb5facc7c15a43cc87fd6fbfffd4e926fbd5c7b5",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3f7413c_03a14d0a",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
         "patchSetId": 2
