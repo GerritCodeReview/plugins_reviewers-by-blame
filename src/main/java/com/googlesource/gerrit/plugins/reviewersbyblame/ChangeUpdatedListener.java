@@ -28,6 +28,7 @@ import com.google.gerrit.server.events.PatchSetCreatedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
+import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
@@ -55,6 +56,7 @@ class ChangeUpdatedListener implements EventListener {
   private final SchemaFactory<ReviewDb> schemaFactory;
   private final PluginConfigFactory cfg;
   private final String pluginName;
+  private final ChangeData.Factory changeDataFactory;
   private ReviewDb db;
 
   @Inject
@@ -66,6 +68,7 @@ class ChangeUpdatedListener implements EventListener {
       final ThreadLocalRequestContext tl,
       final SchemaFactory<ReviewDb> schemaFactory,
       final PluginConfigFactory cfg,
+      final ChangeData.Factory changeDataFactory,
       final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
@@ -74,6 +77,7 @@ class ChangeUpdatedListener implements EventListener {
     this.tl = tl;
     this.schemaFactory = schemaFactory;
     this.cfg = cfg;
+    this.changeDataFactory = changeDataFactory;
     this.pluginName = pluginName;
   }
 
@@ -109,18 +113,20 @@ class ChangeUpdatedListener implements EventListener {
     try (Repository git = repoManager.openRepository(projectName);
         RevWalk rw = new RevWalk(git);
         ReviewDb reviewDb = schemaFactory.open()) {
-      Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
-      PatchSet.Id psId =
-          new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
-      PatchSet ps = reviewDb.patchSets().get(psId);
-      if (ps == null) {
-        log.warn("Patch set " + psId.get() + " not found.");
+      Change.Id changeId = new Change.Id(e.change.get().number);
+      final ChangeData cd = changeDataFactory.create(reviewDb, projectName, changeId);
+      if (cd == null) {
+        log.warn(
+            "Change with id: '{}' on project key: '{}' not found.",
+            changeId.get(),
+            projectName.toString());
         return;
       }
-
-      final Change change = reviewDb.changes().get(psId.getParentKey());
-      if (change == null) {
-        log.warn("Change " + changeId.get() + " not found.");
+      final Change change = cd.change();
+      PatchSet.Id psId = new PatchSet.Id(changeId, e.patchSet.get().number);
+      PatchSet ps = cd.patchSet(psId);
+      if (ps == null) {
+        log.warn("Patch set {} not found in change {}.", psId.get(), changeId.get());
         return;
       }
 
