@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79c9ec5d_4d28714c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-01-18T03:42:46Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "27bf27cc_fac93ed9",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 20
+      },
+      "revId": "d4a17793b7e3f403bcdb359b7c7fa24180526b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "53e7e318_31c00fb8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
         "patchSetId": 15
@@ -45,6 +69,30 @@
       "revId": "d4a17793b7e3f403bcdb359b7c7fa24180526b4d",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2972b660_ed63239f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-01-18T03:42:46Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "53e7e318_31c00fb8",
+      "range": {
+        "startLine": 97,
+        "startChar": 22,
+        "endLine": 97,
+        "endChar": 31
+      },
+      "revId": "d4a17793b7e3f403bcdb359b7c7fa24180526b4d",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     }
   ]
 }
