@@ -59,14 +59,14 @@ class ChangeUpdatedListener implements EventListener {
 
   @Inject
   ChangeUpdatedListener(
-      final ReviewersByBlame.Factory reviewersByBlameFactory,
-      final GitRepositoryManager repoManager,
-      final WorkQueue workQueue,
-      final IdentifiedUser.GenericFactory identifiedUserFactory,
-      final ThreadLocalRequestContext tl,
-      final SchemaFactory<ReviewDb> schemaFactory,
-      final PluginConfigFactory cfg,
-      final @PluginName String pluginName) {
+      ReviewersByBlame.Factory reviewersByBlameFactory,
+      GitRepositoryManager repoManager,
+      WorkQueue workQueue,
+      IdentifiedUser.GenericFactory identifiedUserFactory,
+      ThreadLocalRequestContext tl,
+      SchemaFactory<ReviewDb> schemaFactory,
+      PluginConfigFactory cfg,
+      @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
@@ -118,19 +118,19 @@ class ChangeUpdatedListener implements EventListener {
         return;
       }
 
-      final Change change = reviewDb.changes().get(psId.getParentKey());
+      Change change = reviewDb.changes().get(psId.getParentKey());
       if (change == null) {
         log.warn("Change " + changeId.get() + " not found.");
         return;
       }
 
-      final RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+      RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
       if (!ignoreSubjectRegEx.isEmpty() && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
         return;
       }
 
-      final Runnable task =
+      Runnable task =
           reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
 
       workQueue
