@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
@@ -23,6 +24,7 @@ import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.server.account.AccountCache;
+import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
 import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.change.ChangesCollection;
@@ -36,6 +38,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +63,7 @@ public class ReviewersByBlame implements Runnable {
   private final Repository repo;
   private final int maxReviewers;
   private final String ignoreFileRegEx;
+  private final List<String> ignoredUsers;
 
   private final Emails emails;
   private final AccountCache accountCache;
@@ -74,7 +78,8 @@ public class ReviewersByBlame implements Runnable {
         PatchSet ps,
         int maxReviewers,
         Repository repo,
-        String ignoreFileRegEx);
+        String ignoreFileRegEx,
+        String[] ignoredUsers);
   }
 
   @Inject
@@ -89,7 +94,8 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final PatchSet ps,
       @Assisted final int maxReviewers,
       @Assisted final Repository repo,
-      @Assisted final String ignoreFileRegEx) {
+      @Assisted final String ignoreFileRegEx,
+      @Assisted final String[] ignoredUsers) {
     this.emails = emails;
     this.accountCache = accountCache;
     this.changes = changes;
@@ -101,6 +107,7 @@ public class ReviewersByBlame implements Runnable {
     this.maxReviewers = maxReviewers;
     this.repo = repo;
     this.ignoreFileRegEx = ignoreFileRegEx;
+    this.ignoredUsers = ignoredUsers == null ? ImmutableList.of() : Arrays.asList(ignoredUsers);
   }
 
   @Override
@@ -193,8 +200,12 @@ public class ReviewersByBlame implements Runnable {
         try {
           Set<Account.Id> ids = emails.getAccountFor(commit.getAuthorIdent().getEmailAddress());
           for (Account.Id id : ids) {
-            Account account = accountCache.get(id).getAccount();
-            if (account.isActive() && !change.getOwner().equals(account.getId())) {
+            AccountState state = accountCache.get(id);
+            Account account = state.getAccount();
+            String username = state.getUserName();
+            if (account.isActive()
+                && !change.getOwner().equals(account.getId())
+                && (username == null || !ignoredUsers.contains(username))) {
               Integer count = reviewers.get(account);
               reviewers.put(account, count == null ? 1 : count.intValue() + 1);
             }
