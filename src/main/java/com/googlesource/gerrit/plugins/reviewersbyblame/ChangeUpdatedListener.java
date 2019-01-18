@@ -21,6 +21,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
@@ -88,6 +89,7 @@ class ChangeUpdatedListener implements EventListener {
     int maxReviewers;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
+    PluginConfig pluginConfig;
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
@@ -98,6 +100,9 @@ class ChangeUpdatedListener implements EventListener {
       ignoreFileRegEx =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getString("ignoreFileRegEx", "");
+      pluginConfig =
+          cfg.getFromProjectConfigWithInheritance(
+              projectName, pluginName);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -131,7 +136,7 @@ class ChangeUpdatedListener implements EventListener {
       }
 
       final Runnable task =
-          reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
+          reviewersByBlameFactory.create(pluginConfig, commit, change, ps, maxReviewers, git, ignoreFileRegEx);
 
       workQueue
           .getDefaultQueue()

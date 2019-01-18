@@ -15,6 +15,7 @@
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
 import com.google.gerrit.extensions.annotations.Exports;
+import com.google.gerrit.extensions.api.projects.ProjectConfigEntryType;
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.extensions.registration.DynamicSet;
 import com.google.gerrit.server.config.ProjectConfigEntry;
@@ -50,5 +51,15 @@ public class ReviewersByBlameModule extends FactoryModule {
                 "",
                 true,
                 "Ignore files that match the given regular expression when looking for reviewers"));
+    bind(ProjectConfigEntry.class)
+        .annotatedWith(Exports.named("ignoreUser"))
+        .toInstance(
+            new ProjectConfigEntry(
+                "Ignore User",
+                null,
+                ProjectConfigEntryType.ARRAY,
+                null,
+                false,
+                "Ignores users that  match list specified."));
   }
 }
