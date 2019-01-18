@@ -31,7 +31,6 @@ import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
@@ -52,7 +51,6 @@ class ChangeUpdatedListener implements EventListener {
   private final WorkQueue workQueue;
   private final IdentifiedUser.GenericFactory identifiedUserFactory;
   private final ThreadLocalRequestContext tl;
-  private final SchemaFactory<ReviewDb> schemaFactory;
   private final PluginConfigFactory cfg;
   private final String pluginName;
   private ReviewDb db;
@@ -64,7 +62,6 @@ class ChangeUpdatedListener implements EventListener {
       final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
-      final SchemaFactory<ReviewDb> schemaFactory,
       final PluginConfigFactory cfg,
       final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
@@ -72,7 +69,6 @@ class ChangeUpdatedListener implements EventListener {
     this.workQueue = workQueue;
     this.identifiedUserFactory = identifiedUserFactory;
     this.tl = tl;
-    this.schemaFactory = schemaFactory;
     this.cfg = cfg;
     this.pluginName = pluginName;
   }
@@ -107,8 +103,7 @@ class ChangeUpdatedListener implements EventListener {
     }
 
     try (Repository git = repoManager.openRepository(projectName);
-        RevWalk rw = new RevWalk(git);
-        ReviewDb reviewDb = schemaFactory.open()) {
+        RevWalk rw = new RevWalk(git)) {
       Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
       PatchSet.Id psId =
           new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
@@ -146,23 +141,6 @@ class ChangeUpdatedListener implements EventListener {
                             @Override
                             public CurrentUser getUser() {
                               return identifiedUserFactory.create(change.getOwner());
-                            }
-
-                            @Override
-                            public Provider<ReviewDb> getReviewDbProvider() {
-                              return new Provider<ReviewDb>() {
-                                @Override
-                                public ReviewDb get() {
-                                  if (db == null) {
-                                    try {
-                                      db = schemaFactory.open();
-                                    } catch (OrmException e) {
-                                      throw new ProvisionException("Cannot open ReviewDb", e);
-                                    }
-                                  }
-                                  return db;
-                                }
-                              };
                             }
                           });
                   try {
