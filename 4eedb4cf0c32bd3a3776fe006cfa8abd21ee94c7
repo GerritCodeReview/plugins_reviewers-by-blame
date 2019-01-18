@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a53862b6_aac70eff",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T05:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e71e6bf9_c4728fb1",
+      "range": {
+        "startLine": 17,
+        "startChar": 33,
+        "endLine": 17,
+        "endChar": 46
+      },
+      "revId": "4eedb4cf0c32bd3a3776fe006cfa8abd21ee94c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b984b397_9f45fab8",
         "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
         "patchSetId": 19
@@ -39,6 +63,24 @@
       "revId": "4eedb4cf0c32bd3a3776fe006cfa8abd21ee94c7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c14616f_2031c880",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T05:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b984b397_9f45fab8",
+      "revId": "4eedb4cf0c32bd3a3776fe006cfa8abd21ee94c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "4eedb4cf0c32bd3a3776fe006cfa8abd21ee94c7",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6041bba3_e1d54339",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 19
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T05:16:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe1fc7c9_6ad14719",
+      "range": {
+        "startLine": 200,
+        "startChar": 36,
+        "endLine": 200,
+        "endChar": 69
+      },
+      "revId": "4eedb4cf0c32bd3a3776fe006cfa8abd21ee94c7",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": false
     },
     {
       "key": {
