@@ -18,7 +18,6 @@ import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
-import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
 import com.google.gerrit.server.config.PluginConfigFactory;
@@ -28,13 +27,11 @@ import com.google.gerrit.server.events.PatchSetCreatedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
+import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
 import com.google.gwtorm.server.OrmException;
-import com.google.gwtorm.server.SchemaFactory;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
-import com.google.inject.ProvisionException;
 import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
@@ -49,13 +46,12 @@ class ChangeUpdatedListener implements EventListener {
 
   private final ReviewersByBlame.Factory reviewersByBlameFactory;
   private final GitRepositoryManager repoManager;
+  private final ChangeData.Factory changeDataFactory;
   private final WorkQueue workQueue;
   private final IdentifiedUser.GenericFactory identifiedUserFactory;
   private final ThreadLocalRequestContext tl;
-  private final SchemaFactory<ReviewDb> schemaFactory;
   private final PluginConfigFactory cfg;
   private final String pluginName;
-  private ReviewDb db;
 
   @Inject
   ChangeUpdatedListener(
@@ -64,15 +60,15 @@ class ChangeUpdatedListener implements EventListener {
       final WorkQueue workQueue,
       final IdentifiedUser.GenericFactory identifiedUserFactory,
       final ThreadLocalRequestContext tl,
-      final SchemaFactory<ReviewDb> schemaFactory,
+      final ChangeData.Factory changeDataFactory,
       final PluginConfigFactory cfg,
       final @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
+    this.changeDataFactory = changeDataFactory;
     this.workQueue = workQueue;
     this.identifiedUserFactory = identifiedUserFactory;
     this.tl = tl;
-    this.schemaFactory = schemaFactory;
     this.cfg = cfg;
     this.pluginName = pluginName;
   }
@@ -107,23 +103,19 @@ class ChangeUpdatedListener implements EventListener {
     }
 
     try (Repository git = repoManager.openRepository(projectName);
-        RevWalk rw = new RevWalk(git);
-        ReviewDb reviewDb = schemaFactory.open()) {
+        RevWalk rw = new RevWalk(git)) {
       Change.Id changeId = new Change.Id(Integer.parseInt(Integer.toString(e.change.get().number)));
       PatchSet.Id psId =
           new PatchSet.Id(changeId, Integer.parseInt(Integer.toString(e.patchSet.get().number)));
-      PatchSet ps = reviewDb.patchSets().get(psId);
+
+      ChangeData changeData = changeDataFactory.create(projectName, changeId);
+      PatchSet ps = changeData.patchSet(psId);
       if (ps == null) {
         log.warn("Patch set " + psId.get() + " not found.");
         return;
       }
 
-      final Change change = reviewDb.changes().get(psId.getParentKey());
-      if (change == null) {
-        log.warn("Change " + changeId.get() + " not found.");
-        return;
-      }
-
+      final Change change = changeData.change();
       final RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
       if (!ignoreSubjectRegEx.isEmpty() && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
@@ -147,32 +139,11 @@ class ChangeUpdatedListener implements EventListener {
                             public CurrentUser getUser() {
                               return identifiedUserFactory.create(change.getOwner());
                             }
-
-                            @Override
-                            public Provider<ReviewDb> getReviewDbProvider() {
-                              return new Provider<ReviewDb>() {
-                                @Override
-                                public ReviewDb get() {
-                                  if (db == null) {
-                                    try {
-                                      db = schemaFactory.open();
-                                    } catch (OrmException e) {
-                                      throw new ProvisionException("Cannot open ReviewDb", e);
-                                    }
-                                  }
-                                  return db;
-                                }
-                              };
-                            }
                           });
                   try {
                     task.run();
                   } finally {
                     tl.setContext(old);
-                    if (db != null) {
-                      db.close();
-                      db = null;
-                    }
                   }
                 }
               });
