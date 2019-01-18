@@ -26,6 +26,7 @@ import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
 import com.google.gerrit.server.change.ChangeResource;
+import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
@@ -56,6 +57,7 @@ public class ReviewersByBlame implements Runnable {
 
   private static final Logger log = LoggerFactory.getLogger(ReviewersByBlame.class);
 
+  private final PluginConfig pluginConfig;
   private final RevCommit commit;
   private final Change change;
   private final PatchSet ps;
@@ -71,6 +73,7 @@ public class ReviewersByBlame implements Runnable {
 
   public interface Factory {
     ReviewersByBlame create(
+        PluginConfig pluginConfig,
         RevCommit commit,
         Change change,
         PatchSet ps,
@@ -91,7 +94,8 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final PatchSet ps,
       @Assisted final int maxReviewers,
       @Assisted final Repository repo,
-      @Assisted final String ignoreFileRegEx) {
+      @Assisted final String ignoreFileRegEx,
+      @Assisted final PluginConfig pluginConfig) {
     this.emails = emails;
     this.accountCache = accountCache;
     this.changes = changes;
@@ -103,6 +107,7 @@ public class ReviewersByBlame implements Runnable {
     this.maxReviewers = maxReviewers;
     this.repo = repo;
     this.ignoreFileRegEx = ignoreFileRegEx;
+    this.pluginConfig = pluginConfig;
   }
 
   @Override
@@ -193,6 +198,11 @@ public class ReviewersByBlame implements Runnable {
       for (int i = edit.getBeginA(); i < edit.getEndA(); i++) {
         RevCommit commit = blameResult.getSourceCommit(i);
         try {
+          for (String user : pluginConfig.getStringList("ignoreUser")) {
+            if (commit.getAuthorIdent().getName() === user) {
+              continue;
+            }
+          }
           Set<Account.Id> ids = emails.getAccountFor(commit.getAuthorIdent().getEmailAddress());
           for (Account.Id id : ids) {
             Optional<Account> accountState = accountCache.get(id).map(AccountState::getAccount);
