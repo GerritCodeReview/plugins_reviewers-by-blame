@@ -92,6 +92,7 @@ class ChangeUpdatedListener implements EventListener {
     int maxReviewers;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
+    String[] ignoredUsers;
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
@@ -102,6 +103,9 @@ class ChangeUpdatedListener implements EventListener {
       ignoreFileRegEx =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getString("ignoreFileRegEx", "");
+      ignoredUsers =
+          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
+              .getStringList("ignoredUsers");
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -137,7 +141,8 @@ class ChangeUpdatedListener implements EventListener {
       }
 
       final Runnable task =
-          reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
+          reviewersByBlameFactory.create(
+              commit, change, ps, maxReviewers, git, ignoreFileRegEx, ignoredUsers);
 
       workQueue
           .getDefaultQueue()
