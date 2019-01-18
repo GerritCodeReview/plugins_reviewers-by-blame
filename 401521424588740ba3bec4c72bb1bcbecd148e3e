@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "86bacdfa_5847bc98",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "String[] ignoreUser",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 30
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32a09922_c7ec8321",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "This should be initializing the ignoreUser array.",
+      "range": {
+        "startLine": 103,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 39
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "60d3ccee_9ca9b683",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "It would be bette to make this a List\u003cString\u003e",
+      "range": {
+        "startLine": 68,
+        "startChar": 16,
+        "endLine": 68,
+        "endChar": 24
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1411894f_e07f5f8c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "Not needed. See below.",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5c9f0a6_815b4f07",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "Add ignoredUsers here",
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72b0407c_983e6b47",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "ignoredUsers",
+      "range": {
+        "startLine": 100,
+        "startChar": 31,
+        "endLine": 100,
+        "endChar": 41
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8fa82a4_fa291352",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "Not needed",
+      "range": {
+        "startLine": 101,
+        "startChar": 6,
+        "endLine": 101,
+        "endChar": 47
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90160a2c_272bd43c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1011123
+      },
+      "writtenOn": "2019-01-18T02:51:59Z",
+      "side": 1,
+      "message": "No need to iterate the list, just do:\n\n if ignoredUsers.contains(commit.getAuthorIdent().getName())",
+      "range": {
+        "startLine": 204,
+        "startChar": 10,
+        "endLine": 208,
+        "endChar": 11
+      },
+      "revId": "401521424588740ba3bec4c72bb1bcbecd148e3e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
