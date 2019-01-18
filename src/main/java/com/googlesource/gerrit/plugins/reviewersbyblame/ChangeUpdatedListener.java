@@ -14,6 +14,7 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.PluginName;
 import com.google.gerrit.reviewdb.client.Change;
@@ -37,6 +38,7 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.ProvisionException;
 import java.io.IOException;
+import java.util.Arrays;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -92,6 +94,7 @@ class ChangeUpdatedListener implements EventListener {
     int maxReviewers;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
+    String[] ignoredUsers;
     try {
       maxReviewers =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
@@ -102,6 +105,9 @@ class ChangeUpdatedListener implements EventListener {
       ignoreFileRegEx =
           cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
               .getString("ignoreFileRegEx", "");
+      ignoredUsers =
+          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
+              .getStringList("ignoredUsers");
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -137,7 +143,7 @@ class ChangeUpdatedListener implements EventListener {
       }
 
       final Runnable task =
-          reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
+          reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx, ignoredUsers);
 
       workQueue
           .getDefaultQueue()
