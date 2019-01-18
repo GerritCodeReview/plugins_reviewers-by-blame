@@ -61,15 +61,15 @@ class ChangeUpdatedListener implements EventListener {
 
   @Inject
   ChangeUpdatedListener(
-      final ReviewersByBlame.Factory reviewersByBlameFactory,
-      final GitRepositoryManager repoManager,
-      final WorkQueue workQueue,
-      final IdentifiedUser.GenericFactory identifiedUserFactory,
-      final ThreadLocalRequestContext tl,
-      final SchemaFactory<ReviewDb> schemaFactory,
-      final PluginConfigFactory cfg,
-      final ChangeData.Factory changeDataFactory,
-      final @PluginName String pluginName) {
+      ReviewersByBlame.Factory reviewersByBlameFactory,
+      GitRepositoryManager repoManager,
+      WorkQueue workQueue,
+      IdentifiedUser.GenericFactory identifiedUserFactory,
+      ThreadLocalRequestContext tl,
+      SchemaFactory<ReviewDb> schemaFactory,
+      PluginConfigFactory cfg,
+      ChangeData.Factory changeDataFactory,
+      @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
@@ -114,7 +114,7 @@ class ChangeUpdatedListener implements EventListener {
         RevWalk rw = new RevWalk(git);
         ReviewDb reviewDb = schemaFactory.open()) {
       Change.Id changeId = new Change.Id(e.change.get().number);
-      final ChangeData cd = changeDataFactory.create(reviewDb, projectName, changeId);
+      ChangeData cd = changeDataFactory.create(reviewDb, projectName, changeId);
       if (cd == null) {
         log.warn(
             "Change with id: '{}' on project key: '{}' not found.",
@@ -122,7 +122,7 @@ class ChangeUpdatedListener implements EventListener {
             projectName.toString());
         return;
       }
-      final Change change = cd.change();
+      Change change = cd.change();
       PatchSet.Id psId = new PatchSet.Id(changeId, e.patchSet.get().number);
       PatchSet ps = cd.patchSet(psId);
       if (ps == null) {
@@ -130,13 +130,13 @@ class ChangeUpdatedListener implements EventListener {
         return;
       }
 
-      final RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+      RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
       if (!ignoreSubjectRegEx.isEmpty() && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
         return;
       }
 
-      final Runnable task =
+      Runnable task =
           reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
 
       workQueue
