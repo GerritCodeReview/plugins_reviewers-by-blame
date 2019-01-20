@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2152e738_32e46c56",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1029953
+      },
+      "writtenOn": "2019-01-20T00:36:16Z",
+      "side": 1,
+      "message": "Do we need to implement the blacklist here too?\n\nIf so how would one do that?",
+      "revId": "d26f813a81657949d810138859dd876ac6a00300",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
