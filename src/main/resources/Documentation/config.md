@@ -36,3 +36,10 @@ plugin.reviewers-by-blame.ignoredUsers
 :	A blacklist used to ignore commits if it matches the specified user.
 
 	By default not set.
+
+To configure suggest reviewers do the following:
+
+reviewers-by-blame.enableSuggestReviewers
+:	This will disable using the events to suggest reviewers, rather use a button.
+
+	By default set to false.
