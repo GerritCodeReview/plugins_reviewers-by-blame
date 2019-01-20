@@ -17,7 +17,9 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import com.google.gerrit.extensions.api.GerritApi;
 import com.google.gerrit.extensions.api.changes.AddReviewerInput;
+import com.google.gerrit.extensions.api.changes.ReviewInput;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
@@ -53,7 +55,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ReviewersByBlame implements Runnable {
-
   private static final Logger log = LoggerFactory.getLogger(ReviewersByBlame.class);
 
   private final RevCommit commit;
@@ -62,6 +63,7 @@ public class ReviewersByBlame implements Runnable {
   private final Repository repo;
   private final int maxReviewers;
   private final String ignoreFileRegEx;
+  protected final GerritApi gApi;
 
   private final Emails emails;
   private final AccountCache accountCache;
@@ -91,7 +93,8 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final PatchSet ps,
       @Assisted final int maxReviewers,
       @Assisted final Repository repo,
-      @Assisted final String ignoreFileRegEx) {
+      @Assisted final String ignoreFileRegEx,
+      GerritApi gApi) {
     this.emails = emails;
     this.accountCache = accountCache;
     this.changes = changes;
@@ -103,6 +106,7 @@ public class ReviewersByBlame implements Runnable {
     this.maxReviewers = maxReviewers;
     this.repo = repo;
     this.ignoreFileRegEx = ignoreFileRegEx;
+    this.gApi = gApi;
   }
 
   @Override
@@ -141,13 +145,14 @@ public class ReviewersByBlame implements Runnable {
    */
   private void addReviewers(Set<Account.Id> topReviewers, Change change) {
     try {
-      ChangeResource changeResource = changes.parse(change.getId());
-      PostReviewers post = reviewersProvider.get();
-      for (Account.Id accountId : topReviewers) {
-        AddReviewerInput input = new AddReviewerInput();
-        input.reviewer = accountId.toString();
-        post.apply(changeResource, input);
+      ReviewInput in = new ReviewInput();
+      in.reviewers = new ArrayList<>(topReviewers.size());
+      for (Account.Id account : topReviewers) {
+        AddReviewerInput addReviewerInput = new AddReviewerInput();
+        addReviewerInput.reviewer = account.toString();
+        in.reviewers.add(addReviewerInput);
       }
+      gApi.changes().id(change.getId()).current().review(in);
     } catch (Exception ex) {
       log.error("Couldn't add reviewers to the change", ex);
     }
