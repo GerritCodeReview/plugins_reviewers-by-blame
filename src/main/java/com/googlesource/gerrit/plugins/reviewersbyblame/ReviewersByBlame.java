@@ -141,13 +141,14 @@ public class ReviewersByBlame implements Runnable {
    */
   private void addReviewers(Set<Account.Id> topReviewers, Change change) {
     try {
-      ChangeResource changeResource = changes.parse(change.getId());
-      PostReviewers post = reviewersProvider.get();
-      for (Account.Id accountId : topReviewers) {
-        AddReviewerInput input = new AddReviewerInput();
-        input.reviewer = accountId.toString();
-        post.apply(changeResource, input);
+      ReviewInput in = new ReviewInput();
+      in.reviewers = new ArrayList<>(topReviewers.size());
+      for (Account.Id account : topReviewers) {
+        AddReviewerInput addReviewerInput = new AddReviewerInput();
+        addReviewerInput.reviewer = account.toString();
+        in.reviewers.add(addReviewerInput);
       }
+      gApi.changes().id(change.getId()).current().review(in);
     } catch (Exception ex) {
       log.error("Couldn't add reviewers to the change", ex);
     }
