@@ -14,11 +14,16 @@
 
 package com.googlesource.gerrit.plugins.reviewersbyblame;
 
+import static com.google.gerrit.server.change.RevisionResource.REVISION_KIND;
+
 import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.Exports;
 import com.google.gerrit.extensions.api.projects.ProjectConfigEntryType;
 import com.google.gerrit.extensions.config.FactoryModule;
 import com.google.gerrit.extensions.registration.DynamicSet;
+import com.google.gerrit.extensions.restapi.RestApiModule;
+import com.google.gerrit.extensions.webui.JavaScriptPlugin;
+import com.google.gerrit.extensions.webui.WebUiPlugin;
 import com.google.gerrit.server.config.ProjectConfigEntry;
 
 public class ReviewersByBlameModule extends FactoryModule {
@@ -61,5 +66,14 @@ public class ReviewersByBlameModule extends FactoryModule {
                 null,
                 false,
                 "Ignores users that  match list specified."));
+    install(
+        new RestApiModule() {
+          @Override
+          protected void configure() {
+            post(REVISION_KIND, "reviewersbyblame-change").to(ReviewersByBlameAction.class);
+            post(REVISION_KIND, "reviewersbyblame-revision").to(ReviewersByBlameRevisionAction.class);
+          }
+        });
+    DynamicSet.bind(binder(), WebUiPlugin.class).toInstance(new JavaScriptPlugin("reviewers-by-blame.js"));
   }
 }
