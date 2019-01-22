@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "811928c6_5d6756d5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Better: Support adding reviewers in batch mode",
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92e4f6f7_e9c52470",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Now unused.",
+      "range": {
+        "startLine": 71,
+        "startChar": 40,
+        "endLine": 71,
+        "endChar": 57
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a1549ea_7e650824",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Now unused.",
+      "range": {
+        "startLine": 72,
+        "startChar": 34,
+        "endLine": 72,
+        "endChar": 41
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e373402c_7552829f",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Move it before @Assisted parameters. Assisted are always the last parameters.",
+      "range": {
+        "startLine": 97,
+        "startChar": 6,
+        "endLine": 97,
+        "endChar": 20
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44cb92be_a35834e1",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Assignment should be done in the order of parameters, e.g.:\n\n  @Inject\n  public ReviewersByBlame(\n      final Emails emails,\n      final AccountCache accountCache,\n      final PatchListCache patchListCache,\n      GerritApi gApi,\n      @Assisted final RevCommit commit,\n      @Assisted final Change change,\n      @Assisted final PatchSet ps,\n      @Assisted final int maxReviewers,\n      @Assisted final Repository repo,\n      @Assisted final String ignoreFileRegEx) {\n    this.emails \u003d emails;\n    this.accountCache \u003d accountCache;\n    this.patchListCache \u003d patchListCache;\n    this.gApi \u003d gApi;",
+      "range": {
+        "startLine": 109,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 21
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dcf2d6b3_7d5c5f9a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Doesn\u0027t compile:\n\n  ReviewersByBlame.java:149: error: cannot find symbol\n      in.reviewers \u003d new ArrayList\u003c\u003e(topReviewers.size());\n\nMay be add import java.util.ArrayList?",
+      "range": {
+        "startLine": 149,
+        "startChar": 25,
+        "endLine": 149,
+        "endChar": 34
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "266beeac_00715e48",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-22T20:47:06Z",
+      "side": 1,
+      "message": "Doesn\u0027t compile:\n\n  ReviewersByBlame.java:155: error: no suitable method found for id(Id)\n      gApi.changes().id(change.getId()).current().review(in);\n\nmay be say this instead: gApi.changes().id(change.getChangeId())...?",
+      "range": {
+        "startLine": 155,
+        "startChar": 21,
+        "endLine": 155,
+        "endChar": 23
+      },
+      "revId": "f898bf016eebb723e0f60581c973c04e0d9f4577",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
