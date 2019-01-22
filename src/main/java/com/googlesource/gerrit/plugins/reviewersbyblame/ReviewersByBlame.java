@@ -17,7 +17,9 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import com.google.gerrit.extensions.api.GerritApi;
 import com.google.gerrit.extensions.api.changes.AddReviewerInput;
+import com.google.gerrit.extensions.api.changes.ReviewInput;
 import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.Patch.ChangeType;
@@ -25,7 +27,6 @@ import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
-import com.google.gerrit.server.change.ChangeResource;
 import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
@@ -34,9 +35,9 @@ import com.google.gerrit.server.restapi.change.ChangesCollection;
 import com.google.gerrit.server.restapi.change.PostReviewers;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -66,8 +67,7 @@ public class ReviewersByBlame implements Runnable {
   private final Emails emails;
   private final AccountCache accountCache;
   private final PatchListCache patchListCache;
-  private final Provider<PostReviewers> reviewersProvider;
-  private final ChangesCollection changes;
+  private final GerritApi gApi;
 
   public interface Factory {
     ReviewersByBlame create(
@@ -83,9 +83,8 @@ public class ReviewersByBlame implements Runnable {
   public ReviewersByBlame(
       final Emails emails,
       final AccountCache accountCache,
-      final ChangesCollection changes,
-      final Provider<PostReviewers> reviewersProvider,
       final PatchListCache patchListCache,
+      GerritApi gApi,
       @Assisted final RevCommit commit,
       @Assisted final Change change,
       @Assisted final PatchSet ps,
@@ -94,9 +93,8 @@ public class ReviewersByBlame implements Runnable {
       @Assisted final String ignoreFileRegEx) {
     this.emails = emails;
     this.accountCache = accountCache;
-    this.changes = changes;
-    this.reviewersProvider = reviewersProvider;
     this.patchListCache = patchListCache;
+    this.gApi = gApi;
     this.commit = commit;
     this.change = change;
     this.ps = ps;
@@ -141,13 +139,14 @@ public class ReviewersByBlame implements Runnable {
    */
   private void addReviewers(Set<Account.Id> topReviewers, Change change) {
     try {
-      ChangeResource changeResource = changes.parse(change.getId());
-      PostReviewers post = reviewersProvider.get();
-      for (Account.Id accountId : topReviewers) {
-        AddReviewerInput input = new AddReviewerInput();
-        input.reviewer = accountId.toString();
-        post.apply(changeResource, input);
+      ReviewInput in = new ReviewInput();
+      in.reviewers = new ArrayList<>(topReviewers.size());
+      for (Account.Id account : topReviewers) {
+        AddReviewerInput addReviewerInput = new AddReviewerInput();
+        addReviewerInput.reviewer = account.toString();
+        in.reviewers.add(addReviewerInput);
       }
+      gApi.changes().id(change.getChangeId()).current().review(in);
     } catch (Exception ex) {
       log.error("Couldn't add reviewers to the change", ex);
     }
