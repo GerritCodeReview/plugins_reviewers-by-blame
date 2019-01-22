@@ -16,6 +16,7 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 
 import com.google.gerrit.common.EventListener;
 import com.google.gerrit.extensions.annotations.PluginName;
+import com.google.gerrit.reviewdb.client.Account;
 import com.google.gerrit.reviewdb.client.Change;
 import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
@@ -93,11 +94,13 @@ class ChangeUpdatedListener implements EventListener {
     int maxReviewers;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
+    int onBehalfOf;
     try {
       PluginConfig projectConfig = cfg.getFromProjectConfigWithInheritance(projectName, pluginName);
       maxReviewers = projectConfig.getInt("maxReviewers", 3);
       ignoreSubjectRegEx = projectConfig.getString("ignoreSubjectRegEx", "");
       ignoreFileRegEx = projectConfig.getString("ignoreFileRegEx", "");
+      onBehalfOf = projectConfig.getInt("onBehalfOf", 0);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -147,7 +150,8 @@ class ChangeUpdatedListener implements EventListener {
 
                             @Override
                             public CurrentUser getUser() {
-                              return identifiedUserFactory.create(change.getOwner());
+                              return identifiedUserFactory.create(
+                                  onBehalfOf != 0 ? new Account.Id(onBehalfOf) : change.getOwner());
                             }
 
                             @Override
