@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d28daf0_34329ecd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 22
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1078378
+      },
+      "writtenOn": "2019-01-22T13:22:12Z",
+      "side": 1,
+      "message": "This makes me wonder for two reasons:\n\n1. This commit message makes it sound like the patch would implement a feature to ignore users who have not been contributed to a codebase for years. But this is not what the patch does.\n\n2. I don\u0027t think a manually maintained blacklist is the best way to solve this use case. We would need to *manually* maintain lists of people that are *not* active any more. In every single codebase. Who is expected to spend time on this, any why? We can use Git to tell us which people are still active, either per file or per codebase. The best approach I can think of right now is to automatically exclude all contributors that have not been active on a codebase (no matter which file) for one year.",
+      "range": {
+        "startLine": 9,
+        "startChar": 46,
+        "endLine": 10,
+        "endChar": 55
+      },
+      "revId": "138db4eb36dde99cf1e6ee4bab98acca739be567",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
