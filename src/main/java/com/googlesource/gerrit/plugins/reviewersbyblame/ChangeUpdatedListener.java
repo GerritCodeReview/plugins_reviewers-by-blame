@@ -22,6 +22,7 @@ import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.reviewdb.server.ReviewDb;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.PatchSetCreatedEvent;
@@ -93,15 +94,10 @@ class ChangeUpdatedListener implements EventListener {
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
     try {
-      maxReviewers =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getInt("maxReviewers", 3);
-      ignoreSubjectRegEx =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getString("ignoreSubjectRegEx", "");
-      ignoreFileRegEx =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getString("ignoreFileRegEx", "");
+      PluginConfig projectConfig = cfg.getFromProjectConfigWithInheritance(projectName, pluginName);
+      maxReviewers = projectConfig.getInt("maxReviewers", 3);
+      ignoreSubjectRegEx = projectConfig.getString("ignoreSubjectRegEx", "");
+      ignoreFileRegEx = projectConfig.getString("ignoreFileRegEx", "");
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
