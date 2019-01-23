@@ -22,6 +22,30 @@
       "revId": "7095c1c3d1a098f7918b8b78566a7970fd25ca0f",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e75f20a4_cf9dc8c3",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2019-01-23T06:00:21Z",
+      "side": 1,
+      "message": "It was the easiest way to implement, as currently this plugin doesn\u0027t have any other configuration options outside of project.configuration file that can be changed for specific project. We can change that, starting from this option.",
+      "parentUuid": "307a94ec_1e38cd5d",
+      "range": {
+        "startLine": 107,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 99
+      },
+      "revId": "7095c1c3d1a098f7918b8b78566a7970fd25ca0f",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
     }
   ]
 }
