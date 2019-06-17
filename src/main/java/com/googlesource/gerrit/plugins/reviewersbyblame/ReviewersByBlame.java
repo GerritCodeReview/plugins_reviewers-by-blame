@@ -31,8 +31,6 @@ import com.google.gerrit.server.patch.PatchList;
 import com.google.gerrit.server.patch.PatchListCache;
 import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
-import com.google.gerrit.server.restapi.change.ChangesCollection;
-import com.google.gerrit.server.restapi.change.PostReviewers;
 import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
