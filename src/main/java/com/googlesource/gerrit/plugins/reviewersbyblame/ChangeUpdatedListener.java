@@ -30,7 +30,6 @@ import com.google.gerrit.server.project.NoSuchProjectException;
 import com.google.gerrit.server.query.change.ChangeData;
 import com.google.gerrit.server.util.RequestContext;
 import com.google.gerrit.server.util.ThreadLocalRequestContext;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import java.io.IOException;
 import org.eclipse.jgit.lib.ObjectId;
@@ -152,7 +151,7 @@ class ChangeUpdatedListener implements EventListener {
                   }
                 }
               });
-    } catch (OrmException | IOException x) {
+    } catch (IOException x) {
       log.error(x.getMessage(), x);
     }
   }

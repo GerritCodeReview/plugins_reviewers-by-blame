@@ -32,7 +32,6 @@ import com.google.gerrit.server.patch.PatchListEntry;
 import com.google.gerrit.server.patch.PatchListNotAvailableException;
 import com.google.gerrit.server.restapi.change.ChangesCollection;
 import com.google.gerrit.server.restapi.change.PostReviewers;
-import com.google.gwtorm.server.OrmException;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
@@ -204,7 +203,7 @@ public class ReviewersByBlame implements Runnable {
               }
             }
           }
-        } catch (IOException | OrmException e) {
+        } catch (IOException e) {
           throw new RuntimeException(
               "Unable to get account with email: " + commit.getAuthorIdent().getEmailAddress(), e);
         }
