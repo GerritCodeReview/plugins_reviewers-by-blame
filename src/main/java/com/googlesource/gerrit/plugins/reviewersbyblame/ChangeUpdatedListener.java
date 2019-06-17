@@ -20,6 +20,7 @@ import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.reviewdb.client.Project;
 import com.google.gerrit.server.CurrentUser;
 import com.google.gerrit.server.IdentifiedUser;
+import com.google.gerrit.server.config.PluginConfig;
 import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
@@ -54,14 +55,14 @@ class ChangeUpdatedListener implements EventListener {
 
   @Inject
   ChangeUpdatedListener(
-      final ReviewersByBlame.Factory reviewersByBlameFactory,
-      final GitRepositoryManager repoManager,
-      final WorkQueue workQueue,
-      final IdentifiedUser.GenericFactory identifiedUserFactory,
-      final ThreadLocalRequestContext tl,
-      final PluginConfigFactory cfg,
-      final ChangeData.Factory changeDataFactory,
-      final @PluginName String pluginName) {
+      ReviewersByBlame.Factory reviewersByBlameFactory,
+      GitRepositoryManager repoManager,
+      WorkQueue workQueue,
+      IdentifiedUser.GenericFactory identifiedUserFactory,
+      ThreadLocalRequestContext tl,
+      PluginConfigFactory cfg,
+      ChangeData.Factory changeDataFactory,
+      @PluginName String pluginName) {
     this.reviewersByBlameFactory = reviewersByBlameFactory;
     this.repoManager = repoManager;
     this.workQueue = workQueue;
@@ -84,15 +85,10 @@ class ChangeUpdatedListener implements EventListener {
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
     try {
-      maxReviewers =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getInt("maxReviewers", 3);
-      ignoreSubjectRegEx =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getString("ignoreSubjectRegEx", "");
-      ignoreFileRegEx =
-          cfg.getFromProjectConfigWithInheritance(projectName, pluginName)
-              .getString("ignoreFileRegEx", "");
+      PluginConfig projectConfig = cfg.getFromProjectConfigWithInheritance(projectName, pluginName);
+      maxReviewers = projectConfig.getInt("maxReviewers", 3);
+      ignoreSubjectRegEx = projectConfig.getString("ignoreSubjectRegEx", "");
+      ignoreFileRegEx = projectConfig.getString("ignoreFileRegEx", "");
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -104,7 +100,7 @@ class ChangeUpdatedListener implements EventListener {
     try (Repository git = repoManager.openRepository(projectName);
         RevWalk rw = new RevWalk(git)) {
       Change.Id changeId = new Change.Id(e.change.get().number);
-      final ChangeData cd = changeDataFactory.create(projectName, changeId);
+      ChangeData cd = changeDataFactory.create(projectName, changeId);
       if (cd == null) {
         log.warn(
             "Change with id: '{}' on project key: '{}' not found.",
@@ -112,7 +108,7 @@ class ChangeUpdatedListener implements EventListener {
             projectName.toString());
         return;
       }
-      final Change change = cd.change();
+      Change change = cd.change();
       PatchSet.Id psId = new PatchSet.Id(changeId, e.patchSet.get().number);
       PatchSet ps = cd.patchSet(psId);
       if (ps == null) {
@@ -120,13 +116,13 @@ class ChangeUpdatedListener implements EventListener {
         return;
       }
 
-      final RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
+      RevCommit commit = rw.parseCommit(ObjectId.fromString(e.patchSet.get().revision));
 
       if (!ignoreSubjectRegEx.isEmpty() && commit.getShortMessage().matches(ignoreSubjectRegEx)) {
         return;
       }
 
-      final Runnable task =
+      Runnable task =
           reviewersByBlameFactory.create(commit, change, ps, maxReviewers, git, ignoreFileRegEx);
 
       workQueue
