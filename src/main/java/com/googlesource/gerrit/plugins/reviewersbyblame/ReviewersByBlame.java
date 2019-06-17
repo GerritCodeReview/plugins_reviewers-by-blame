@@ -81,16 +81,16 @@ public class ReviewersByBlame implements Runnable {
 
   @Inject
   public ReviewersByBlame(
-      final Emails emails,
-      final AccountCache accountCache,
-      final PatchListCache patchListCache,
+      Emails emails,
+      AccountCache accountCache,
+      PatchListCache patchListCache,
       GerritApi gApi,
-      @Assisted final RevCommit commit,
-      @Assisted final Change change,
-      @Assisted final PatchSet ps,
-      @Assisted final int maxReviewers,
-      @Assisted final Repository repo,
-      @Assisted final String ignoreFileRegEx) {
+      @Assisted RevCommit commit,
+      @Assisted Change change,
+      @Assisted PatchSet ps,
+      @Assisted int maxReviewers,
+      @Assisted Repository repo,
+      @Assisted String ignoreFileRegEx) {
     this.emails = emails;
     this.accountCache = accountCache;
     this.patchListCache = patchListCache;
@@ -160,7 +160,7 @@ public class ReviewersByBlame implements Runnable {
    * @param reviewers A set of reviewers with their weight mapped to their {@link Account}
    * @return Reviewers that are best matches for this change, empty if none, never <code>null</code>
    */
-  private Set<Account.Id> findTopReviewers(final Map<Account, Integer> reviewers) {
+  private Set<Account.Id> findTopReviewers(Map<Account, Integer> reviewers) {
     Set<Account.Id> topReviewers = Sets.newHashSet();
     List<Entry<Account, Integer>> entries =
         Ordering.from(
@@ -185,8 +185,7 @@ public class ReviewersByBlame implements Runnable {
    * @param blameResult Result of blame computation
    * @return a set of all possible reviewers, empty if none, never <code>null</code>
    */
-  private Map<Account, Integer> getReviewersForPatch(
-      final List<Edit> edits, final BlameResult blameResult) {
+  private Map<Account, Integer> getReviewersForPatch(List<Edit> edits, BlameResult blameResult) {
     Map<Account, Integer> reviewers = Maps.newHashMap();
     for (Edit edit : edits) {
       for (int i = edit.getBeginA(); i < edit.getEndA(); i++) {
@@ -220,7 +219,7 @@ public class ReviewersByBlame implements Runnable {
    * @param parent Parent {@link RevCommit}
    * @return Result of blame computation, null if the computation fails
    */
-  private BlameResult computeBlame(final PatchListEntry entry, final RevCommit parent) {
+  private BlameResult computeBlame(PatchListEntry entry, RevCommit parent) {
     BlameCommand blameCommand = new BlameCommand(repo);
     blameCommand.setStartCommit(parent);
     blameCommand.setFilePath(entry.getNewName());
