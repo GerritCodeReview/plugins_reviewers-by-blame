@@ -103,7 +103,7 @@ class ChangeUpdatedListener implements EventListener {
 
     try (Repository git = repoManager.openRepository(projectName);
         RevWalk rw = new RevWalk(git)) {
-      Change.Id changeId = new Change.Id(e.change.get().number);
+      Change.Id changeId = Change.id(e.change.get().number);
       final ChangeData cd = changeDataFactory.create(projectName, changeId);
       if (cd == null) {
         log.warn(
@@ -113,7 +113,7 @@ class ChangeUpdatedListener implements EventListener {
         return;
       }
       final Change change = cd.change();
-      PatchSet.Id psId = new PatchSet.Id(changeId, e.patchSet.get().number);
+      PatchSet.Id psId = PatchSet.id(changeId, e.patchSet.get().number);
       PatchSet ps = cd.patchSet(psId);
       if (ps == null) {
         log.warn("Patch set {} not found in change {}.", psId.get(), changeId.get());
