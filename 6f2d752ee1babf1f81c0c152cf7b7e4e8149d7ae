@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8cb5bf04_c6ca9c0f",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-10-07T13:42:20Z",
+      "side": 1,
+      "message": "Use \u003ciron-input\u003e tags instead to ensure Polymer 2 compatibility.",
+      "revId": "6f2d752ee1babf1f81c0c152cf7b7e4e8149d7ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d73bbc9f_71bd2951",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-10-07T13:42:20Z",
+      "side": 1,
+      "message": "Use \u003ciron-input\u003e tags instead to ensure Polymer 2 compatibility.",
+      "revId": "6f2d752ee1babf1f81c0c152cf7b7e4e8149d7ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "508253c2_e03ef02e",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.html",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2019-10-07T13:42:20Z",
+      "side": 1,
+      "message": "Use \u003ciron-input\u003e tags instead to ensure Polymer 2 compatibility.",
+      "revId": "6f2d752ee1babf1f81c0c152cf7b7e4e8149d7ae",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
