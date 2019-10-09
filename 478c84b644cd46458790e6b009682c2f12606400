@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aa15bd65_ba36b9e9",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.html",
+        "patchSetId": 7
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-10-09T09:25:06Z",
+      "side": 1,
+      "message": "lets start replacing on-tap with on-click :)",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 24
+      },
+      "revId": "478c84b644cd46458790e6b009682c2f12606400",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f801219_90f0a4af",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-10-09T09:25:06Z",
+      "side": 1,
+      "message": "`{}` :)",
+      "range": {
+        "startLine": 33,
+        "startChar": 44,
+        "endLine": 33,
+        "endChar": 56
+      },
+      "revId": "478c84b644cd46458790e6b009682c2f12606400",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8b476af_b1be1bf7",
+        "filename": "src/main/resources/static/gr-reviewers-by-blame-config.js",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1086906
+      },
+      "writtenOn": "2019-10-09T09:25:06Z",
+      "side": 1,
+      "message": "nit: maybe follow same code style for consistent :) single quote vs double quote",
+      "range": {
+        "startLine": 74,
+        "startChar": 13,
+        "endLine": 74,
+        "endChar": 15
+      },
+      "revId": "478c84b644cd46458790e6b009682c2f12606400",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153",
+      "unresolved": true
+    }
+  ]
+}
