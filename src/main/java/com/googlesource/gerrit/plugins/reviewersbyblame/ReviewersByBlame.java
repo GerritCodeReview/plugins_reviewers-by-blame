@@ -17,13 +17,13 @@ package com.googlesource.gerrit.plugins.reviewersbyblame;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Ordering;
 import com.google.common.collect.Sets;
+import com.google.gerrit.entities.Account;
+import com.google.gerrit.entities.Change;
+import com.google.gerrit.entities.Patch.ChangeType;
+import com.google.gerrit.entities.PatchSet;
 import com.google.gerrit.extensions.api.GerritApi;
 import com.google.gerrit.extensions.api.changes.AddReviewerInput;
 import com.google.gerrit.extensions.api.changes.ReviewInput;
-import com.google.gerrit.reviewdb.client.Account;
-import com.google.gerrit.reviewdb.client.Change;
-import com.google.gerrit.reviewdb.client.Patch.ChangeType;
-import com.google.gerrit.reviewdb.client.PatchSet;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
@@ -170,7 +170,7 @@ public class ReviewersByBlame implements Runnable {
                 })
             .greatestOf(reviewers.entrySet(), this.maxReviewers);
     for (Entry<Account, Integer> entry : entries) {
-      topReviewers.add(entry.getKey().getId());
+      topReviewers.add(entry.getKey().id());
     }
     return topReviewers;
   }
@@ -190,10 +190,10 @@ public class ReviewersByBlame implements Runnable {
         try {
           Set<Account.Id> ids = emails.getAccountFor(commit.getAuthorIdent().getEmailAddress());
           for (Account.Id id : ids) {
-            Optional<Account> accountState = accountCache.get(id).map(AccountState::getAccount);
+            Optional<Account> accountState = accountCache.get(id).map(AccountState::account);
             if (accountState.isPresent()) {
               Account account = accountState.get();
-              if (account.isActive() && !change.getOwner().equals(account.getId())) {
+              if (account.isActive() && !change.getOwner().equals(account.id())) {
                 Integer count = reviewers.get(account);
                 reviewers.put(account, count == null ? 1 : count.intValue() + 1);
               }
