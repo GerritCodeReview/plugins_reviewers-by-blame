@@ -38,7 +38,7 @@
     },
 
     _getPreferences() {
-      return this._projectRestApi.get(`${this.repoName}/config`)
+      return this._projectRestApi.get(`${encodeURIComponent(this.repoName)}/config`)
         .then(config => {
           if (!config) {
             return;
@@ -59,7 +59,7 @@
       let body = { plugin_config_values: {} };
       body.plugin_config_values['reviewers-by-blame'] = this._changedConfig;
 
-      this._projectRestApi.put(`${this.repoName}/config`, body)
+      this._projectRestApi.put(`${encodeURIComponent(this.repoName)}/config`, body)
         .then(() => {
           this._prefsChanged = false;
         }).catch(response => {
