@@ -30,7 +30,8 @@ limitations under the License.
             <input id="ignoreFileRegEx"
                    value="{{_changedConfig.ignoreFileRegEx.value::input}}"
                    type="text"
-                   on-input="_handlePrefsChanged">
+                   on-input="_handlePrefsChanged"
+                   disabled$="[[readOnly]]">
           </iron-input>
         </span>
         <span class="value">
@@ -44,7 +45,8 @@ limitations under the License.
             <input id="ignoreSubjectRegEx"
                    value="{{_changedConfig.ignoreSubjectRegEx.value::input}}"
                    type="text"
-                   on-input="_handlePrefsChanged">
+                   on-input="_handlePrefsChanged"
+                   disabled$="[[readOnly]]">
           </iron-input>
         </span>
         <span class="value">
@@ -61,7 +63,8 @@ limitations under the License.
                    allowed-pattern="[0-9]"
                    type="number"
                    on-keypress="_handlePrefsChanged"
-                   on-change="_handlePrefsChanged">
+                   on-change="_handlePrefsChanged"
+                   disabled$="[[readOnly]]">
           </iron-input>
         </span>
         <span class="value">

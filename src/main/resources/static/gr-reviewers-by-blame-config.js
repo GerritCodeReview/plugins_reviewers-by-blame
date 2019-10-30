@@ -27,6 +27,10 @@
         value: false,
       },
       _projectRestApi: Object,
+      readOnly: {
+        type: Boolean,
+        value: true,
+      },
     },
 
     attached() {
