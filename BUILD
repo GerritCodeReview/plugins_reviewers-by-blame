@@ -7,7 +7,6 @@ gerrit_plugin(
     manifest_entries = [
         "Gerrit-PluginName: reviewers-by-blame",
         "Gerrit-Module: com.googlesource.gerrit.plugins.reviewersbyblame.ReviewersByBlameModule",
-        "Gerrit-HttpModule: com.googlesource.gerrit.plugins.reviewersbyblame.HttpModule",
         "Implementation-Title: Reviewers By Blame",
         "Implementation-URL: https://gerrit.googlesource.com/plugins/reviewers-by-blame",
     ],
