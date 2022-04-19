@@ -22,15 +22,16 @@ import com.google.gerrit.entities.Change;
 import com.google.gerrit.entities.Patch.ChangeType;
 import com.google.gerrit.entities.PatchSet;
 import com.google.gerrit.extensions.api.GerritApi;
-import com.google.gerrit.extensions.api.changes.AddReviewerInput;
 import com.google.gerrit.extensions.api.changes.ReviewInput;
+import com.google.gerrit.extensions.api.changes.ReviewerInput;
 import com.google.gerrit.server.account.AccountCache;
 import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
-import com.google.gerrit.server.patch.PatchList;
-import com.google.gerrit.server.patch.PatchListCache;
-import com.google.gerrit.server.patch.PatchListEntry;
-import com.google.gerrit.server.patch.PatchListNotAvailableException;
+import com.google.gerrit.server.patch.DiffNotAvailableException;
+import com.google.gerrit.server.patch.DiffOperations;
+import com.google.gerrit.server.patch.DiffOptions;
+import com.google.gerrit.server.patch.filediff.FileDiffOutput;
+import com.google.gerrit.server.patch.filediff.TaggedEdit;
 import com.google.inject.Inject;
 import com.google.inject.assistedinject.Assisted;
 import java.io.IOException;
@@ -41,6 +42,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.eclipse.jgit.api.BlameCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.blame.BlameResult;
@@ -63,7 +65,7 @@ public class ReviewersByBlame implements Runnable {
 
   private final Emails emails;
   private final AccountCache accountCache;
-  private final PatchListCache patchListCache;
+  private final DiffOperations diffOperations;
   private final GerritApi gApi;
 
   public interface Factory {
@@ -80,7 +82,7 @@ public class ReviewersByBlame implements Runnable {
   public ReviewersByBlame(
       Emails emails,
       AccountCache accountCache,
-      PatchListCache patchListCache,
+      DiffOperations diffOperations,
       GerritApi gApi,
       @Assisted RevCommit commit,
       @Assisted Change change,
@@ -90,7 +92,7 @@ public class ReviewersByBlame implements Runnable {
       @Assisted String ignoreFileRegEx) {
     this.emails = emails;
     this.accountCache = accountCache;
-    this.patchListCache = patchListCache;
+    this.diffOperations = diffOperations;
     this.gApi = gApi;
     this.commit = commit;
     this.change = change;
@@ -103,10 +105,13 @@ public class ReviewersByBlame implements Runnable {
   @Override
   public void run() {
     Map<Account, Integer> reviewers = Maps.newHashMap();
-    PatchList patchList;
+    Map<String, FileDiffOutput> stringFileDiffOutputMap;
     try {
-      patchList = patchListCache.get(change, ps);
-    } catch (PatchListNotAvailableException ex) {
+      stringFileDiffOutputMap =
+          diffOperations.listModifiedFilesAgainstParent(
+              change.getProject(), ps.commitId(), /* parentNum= */ 0, DiffOptions.DEFAULTS);
+
+    } catch (DiffNotAvailableException ex) {
       log.error("Couldn't load patchlist for change {}", change.getKey(), ex);
       return;
     }
@@ -114,13 +119,13 @@ public class ReviewersByBlame implements Runnable {
     if (commit.getParentCount() != 1) {
       return;
     }
-    for (PatchListEntry entry : patchList.getPatches()) {
+    for (FileDiffOutput entry : stringFileDiffOutputMap.values()) {
       BlameResult blameResult;
-      if ((entry.getChangeType() == ChangeType.MODIFIED
-              || entry.getChangeType() == ChangeType.DELETED)
-          && (ignoreFileRegEx.isEmpty() || !entry.getNewName().matches(ignoreFileRegEx))
+      if ((entry.changeType() == ChangeType.MODIFIED || entry.changeType() == ChangeType.DELETED)
+          && (ignoreFileRegEx.isEmpty() || !entry.newPath().orElse("").matches(ignoreFileRegEx))
           && (blameResult = computeBlame(entry, commit.getParent(0))) != null) {
-        List<Edit> edits = entry.getEdits();
+        List<Edit> edits =
+            entry.edits().stream().map(TaggedEdit::jgitEdit).collect(Collectors.toList());
         reviewers.putAll(getReviewersForPatch(edits, blameResult));
       }
     }
@@ -139,7 +144,7 @@ public class ReviewersByBlame implements Runnable {
       ReviewInput in = new ReviewInput();
       in.reviewers = new ArrayList<>(topReviewers.size());
       for (Account.Id account : topReviewers) {
-        AddReviewerInput addReviewerInput = new AddReviewerInput();
+        ReviewerInput addReviewerInput = new ReviewerInput();
         addReviewerInput.reviewer = account.toString();
         in.reviewers.add(addReviewerInput);
       }
@@ -212,14 +217,22 @@ public class ReviewersByBlame implements Runnable {
    * Compute the blame data for the parent, we are not interested in the specific commit but the
    * parent, since we only want to know the last person that edited this specific part of the code.
    *
-   * @param entry {@link PatchListEntry}
+   * @param entry {@link FileDiffOutput}
    * @param parent Parent {@link RevCommit}
    * @return Result of blame computation, null if the computation fails
    */
-  private BlameResult computeBlame(PatchListEntry entry, RevCommit parent) {
+  private BlameResult computeBlame(FileDiffOutput entry, RevCommit parent) {
+    if (entry.changeType() == ChangeType.ADDED) {
+      // there is no this file in the parent commit so there is no blame
+      return null;
+    }
+
+    // For all other ChangeType cases this file exists in the old commit and therefore we
+    // use the entry.oldPath() which is then guaranteed to be set
+
     BlameCommand blameCommand = new BlameCommand(repo);
     blameCommand.setStartCommit(parent);
-    blameCommand.setFilePath(entry.getNewName());
+    blameCommand.setFilePath(entry.oldPath().get());
     try {
       BlameResult blameResult = blameCommand.call();
       blameResult.computeAll();
