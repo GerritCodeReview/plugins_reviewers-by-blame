@@ -34,6 +34,69 @@
       "parentUuid": "5b08e072_8aafd573",
       "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b404aa4a_dfea79c9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-26T14:09:53Z",
+      "side": 1,
+      "message": "The fix looks OK to me but some minor details need to be clarified",
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6aec104b_81f1371d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-26T14:09:53Z",
+      "side": 1,
+      "message": "This needs to be updated",
+      "range": {
+        "startLine": 221,
+        "startChar": 25,
+        "endLine": 221,
+        "endChar": 39
+      },
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3011f5e4_d8a9b16c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-26T14:09:53Z",
+      "side": 1,
+      "message": "what will BlameCommand do with an empty string as path?",
+      "range": {
+        "startLine": 228,
+        "startChar": 45,
+        "endLine": 228,
+        "endChar": 55
+      },
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
