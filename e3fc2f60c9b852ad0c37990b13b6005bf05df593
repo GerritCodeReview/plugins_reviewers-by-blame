@@ -16,6 +16,24 @@
       "message": "@Saša @DavidO is this plugin still actively maintained? Does it still make sense to keep it?",
       "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c136a6a_cdaae97a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1011323
+      },
+      "writtenOn": "2022-04-26T10:24:22Z",
+      "side": 1,
+      "message": "I am not using this plugin, but my understanding is, that this plugin is useful for this specific use case: add reviewers based on git blame information.",
+      "parentUuid": "5b08e072_8aafd573",
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
   ]
 }
