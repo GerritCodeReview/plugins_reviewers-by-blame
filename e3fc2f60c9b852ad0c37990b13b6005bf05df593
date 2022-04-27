@@ -53,6 +53,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d0276c0d_31ea005b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-27T07:22:43Z",
+      "side": 1,
+      "message": "We are using this plugin, so I will take care about fixing the build.",
+      "parentUuid": "9c136a6a_cdaae97a",
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6aec104b_81f1371d",
