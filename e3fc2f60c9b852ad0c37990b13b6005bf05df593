@@ -94,6 +94,30 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec2c3515_fe4fa83c",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-27T16:09:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6aec104b_81f1371d",
+      "range": {
+        "startLine": 221,
+        "startChar": 25,
+        "endLine": 221,
+        "endChar": 39
+      },
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3011f5e4_d8a9b16c",
@@ -131,6 +155,30 @@
       "side": 1,
       "message": "In that case the BlameGenerator \u003e PathFilter.create will throw IllegalArgumentException(emptyPathNotPermitted)\n\nactually we should return null for the entry.changeType() \u003d\u003d ADDED (because the blame is computed for the version in parent) and for all other cases use the oldPath which is then guaranteed to be set",
       "parentUuid": "3011f5e4_d8a9b16c",
+      "range": {
+        "startLine": 228,
+        "startChar": 45,
+        "endLine": 228,
+        "endChar": 55
+      },
+      "revId": "e3fc2f60c9b852ad0c37990b13b6005bf05df593",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3671e1d_c3e7c25a",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-27T16:09:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cfacf2db_cc6d3a03",
       "range": {
         "startLine": 228,
         "startChar": 45,

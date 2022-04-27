@@ -18,6 +18,24 @@
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0df4ac0f_24893b17",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-27T16:09:28Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "e9e871ab_961ad7fd",
+      "revId": "54ca702b9042882dd8c22862491d081de3a0776e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "288b3dd0_336cad16",
@@ -31,6 +49,24 @@
       "writtenOn": "2022-04-26T14:09:53Z",
       "side": 0,
       "message": "same as the previous question",
+      "revId": "54ca702b9042882dd8c22862491d081de3a0776e",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9f54be7d_ea89b60d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1003873
+      },
+      "writtenOn": "2022-04-27T16:09:28Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "288b3dd0_336cad16",
       "revId": "54ca702b9042882dd8c22862491d081de3a0776e",
       "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
     }
