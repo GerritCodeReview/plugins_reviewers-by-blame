@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37733028_413fc433",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-02T11:23:57Z",
+      "side": 1,
+      "message": "LGTM. Only small nits",
+      "revId": "80cde2d4656a992b7fa7c2628ef678ef03c7a554",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "eaad0119_cb16be1d",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-02T11:23:57Z",
+      "side": 1,
+      "message": "nit: Instead of a comment, use a constant with a descriptive name.",
+      "range": {
+        "startLine": 112,
+        "startChar": 50,
+        "endLine": 112,
+        "endChar": 68
+      },
+      "revId": "80cde2d4656a992b7fa7c2628ef678ef03c7a554",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0af3b9c9_ed175aad",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-02T11:23:57Z",
+      "side": 1,
+      "message": "optional: reviewerInput (to match class name)",
+      "range": {
+        "startLine": 147,
+        "startChar": 22,
+        "endLine": 147,
+        "endChar": 38
+      },
+      "revId": "80cde2d4656a992b7fa7c2628ef678ef03c7a554",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3caf642d_76363fd7",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ReviewersByBlame.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1065256
+      },
+      "writtenOn": "2022-05-02T11:23:57Z",
+      "side": 1,
+      "message": "Better english: This file is not present in the parent commit...",
+      "range": {
+        "startLine": 226,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 18
+      },
+      "revId": "80cde2d4656a992b7fa7c2628ef678ef03c7a554",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
