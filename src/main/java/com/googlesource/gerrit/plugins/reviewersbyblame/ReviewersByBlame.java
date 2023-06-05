@@ -29,7 +29,6 @@ import com.google.gerrit.server.account.AccountState;
 import com.google.gerrit.server.account.Emails;
 import com.google.gerrit.server.patch.DiffNotAvailableException;
 import com.google.gerrit.server.patch.DiffOperations;
-import com.google.gerrit.server.patch.DiffOptions;
 import com.google.gerrit.server.patch.filediff.FileDiffOutput;
 import com.google.gerrit.server.patch.filediff.TaggedEdit;
 import com.google.inject.Inject;
@@ -110,7 +109,7 @@ public class ReviewersByBlame implements Runnable {
     try {
       stringFileDiffOutputMap =
           diffOperations.listModifiedFilesAgainstParent(
-              change.getProject(), ps.commitId(), DEFAULT_BASE, DiffOptions.DEFAULTS);
+              change.getProject(), ps.commitId(), DEFAULT_BASE);
 
     } catch (DiffNotAvailableException ex) {
       log.error("Couldn't load patchlist for change {}", change.getKey(), ex);
