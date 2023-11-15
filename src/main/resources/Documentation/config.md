@@ -31,3 +31,8 @@ plugin.reviewers-by-blame.ignoreSubjectRegEx
 	the given regular expression. If empty or not set, no commits are ignored.
 
 	By default not set.
+
+plugin.reviewers-by-blame.ignoreWIP
+:	Ignore patchsets that are in the WIP state.
+
+	By default true.

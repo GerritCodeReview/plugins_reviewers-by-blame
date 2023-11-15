@@ -25,6 +25,9 @@ import com.google.gerrit.server.config.PluginConfigFactory;
 import com.google.gerrit.server.events.Event;
 import com.google.gerrit.server.events.EventListener;
 import com.google.gerrit.server.events.PatchSetCreatedEvent;
+import com.google.gerrit.server.events.PatchSetEvent;
+import com.google.gerrit.server.events.PrivateStateChangedEvent;
+import com.google.gerrit.server.events.WorkInProgressStateChangedEvent;
 import com.google.gerrit.server.git.GitRepositoryManager;
 import com.google.gerrit.server.git.WorkQueue;
 import com.google.gerrit.server.project.NoSuchProjectException;
@@ -75,20 +78,24 @@ class ChangeUpdatedListener implements EventListener {
 
   @Override
   public void onEvent(Event event) {
-    if (!(event instanceof PatchSetCreatedEvent)) {
+    if (!(event instanceof PatchSetCreatedEvent) &&
+        !(event instanceof WorkInProgressStateChangedEvent) &&
+        !(event instanceof PrivateStateChangedEvent)) {
       return;
     }
-    PatchSetCreatedEvent e = (PatchSetCreatedEvent) event;
+    PatchSetEvent e = (PatchSetEvent) event;
     Project.NameKey projectName = e.getProjectNameKey();
 
     int maxReviewers;
     String ignoreSubjectRegEx;
     String ignoreFileRegEx;
+    boolean ignoreWIP;
     try {
       PluginConfig projectConfig = cfg.getFromProjectConfigWithInheritance(projectName, pluginName);
       maxReviewers = projectConfig.getInt("maxReviewers", 3);
       ignoreSubjectRegEx = projectConfig.getString("ignoreSubjectRegEx", "");
       ignoreFileRegEx = projectConfig.getString("ignoreFileRegEx", "");
+      ignoreWIP = projectConfig.getBoolean("ignoreWIP", true);
     } catch (NoSuchProjectException x) {
       log.error(x.getMessage(), x);
       return;
@@ -113,6 +120,15 @@ class ChangeUpdatedListener implements EventListener {
       PatchSet ps = cd.patchSet(psId);
       if (ps == null) {
         log.warn("Patch set {} not found in change {}.", psId.get(), changeId.get());
+        return;
+      }
+
+      // Never add reviewers to private changes.
+      if (change.isPrivate()) {
+        return;
+      }
+
+      if (ignoreWIP && change.isWorkInProgress()) {
         return;
       }
 

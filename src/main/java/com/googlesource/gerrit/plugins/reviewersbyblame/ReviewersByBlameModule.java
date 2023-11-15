@@ -50,5 +50,13 @@ public class ReviewersByBlameModule extends FactoryModule {
                 "",
                 true,
                 "Ignore files that match the given regular expression when looking for reviewers"));
+    bind(ProjectConfigEntry.class)
+        .annotatedWith(Exports.named("ignoreWIP"))
+        .toInstance(
+            new ProjectConfigEntry(
+                "Ignore WIP changes",
+                "true",
+                true,
+                "Ignore patchsets that are in the WIP state."));
   }
 }
