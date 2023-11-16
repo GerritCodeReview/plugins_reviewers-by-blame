@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56c2fa18_e12e2e33",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2023-11-16T08:06:08Z",
+      "side": 1,
+      "message": "Not a user of reviewers-by-blame, so take my comments with a grain of salt and feel free to ignore them if you disagree.",
+      "revId": "fe62ceb702c0330a80c97550ce8e899c9a6ddfbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f566ea2_ee12ef57",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2023-11-16T08:06:08Z",
+      "side": 1,
+      "message": "Default true would potentially break the workflow of any instances currently using it if they update (even if it may be a welcome breakage).\n\nPerhaps default false instead?",
+      "range": {
+        "startLine": 98,
+        "startChar": 56,
+        "endLine": 98,
+        "endChar": 60
+      },
+      "revId": "fe62ceb702c0330a80c97550ce8e899c9a6ddfbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b143feb1_328348b4",
+        "filename": "src/main/java/com/googlesource/gerrit/plugins/reviewersbyblame/ChangeUpdatedListener.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2023-11-16T08:06:08Z",
+      "side": 1,
+      "message": "Reviewers added to private changes can see private changes.\nAs noted by the little info-tab when adding reviewers to private changes.\n```\n! Adding a reviewer/CC will make this private change visible to them \n```\n\nMaybe this should also be a configuration option?",
+      "revId": "fe62ceb702c0330a80c97550ce8e899c9a6ddfbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "26252c6f_50eb99a5",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2023-11-16T08:06:08Z",
+      "side": 1,
+      "message": "Suggestion to better match the style of previous configurations options.\n\n```suggestion\n:\tIgnore patchsets that are in the WIP state.\n\tIf empty or not set, changes uploaded as Work in Progress are\n\tignored.\n```",
+      "range": {
+        "startLine": 36,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 1
+      },
+      "revId": "fe62ceb702c0330a80c97550ce8e899c9a6ddfbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "afa924e6_b192bbe3",
+        "filename": "src/main/resources/Documentation/config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1071857
+      },
+      "writtenOn": "2023-11-16T08:06:08Z",
+      "side": 1,
+      "message": "Nit: Newline.",
+      "revId": "fe62ceb702c0330a80c97550ce8e899c9a6ddfbc",
+      "serverId": "173816e5-2b9a-37c3-8a2e-48639d4f1153"
+    }
+  ]
+}
