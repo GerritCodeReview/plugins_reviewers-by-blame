@@ -143,7 +143,7 @@ class ChangeUpdatedListener implements EventListener {
                   try {
                     task.run();
                   } finally {
-                    tl.setContext(old);
+                    var unused = tl.setContext(old);
                   }
                 }
               });
